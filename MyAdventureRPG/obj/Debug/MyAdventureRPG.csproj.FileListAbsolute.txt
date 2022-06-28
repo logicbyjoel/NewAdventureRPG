@@ -1,0 +1,13 @@
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.AssemblyReference.cache
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.SuggestedBindingRedirects.cache
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\SuperAdventure.Properties.Resources.resources
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.GenerateResource.cache
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.CoreCompileInputs.cache
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\bin\Debug\MyAdventureRPG.exe.config
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\bin\Debug\MyAdventureRPG.exe
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\bin\Debug\MyAdventureRPG.pdb
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\bin\Debug\Engine.dll
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\bin\Debug\Engine.pdb
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.CopyComplete
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.exe
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.pdb
