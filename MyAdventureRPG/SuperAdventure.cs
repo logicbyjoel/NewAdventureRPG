@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Engine;   // link local Engine Project
 
 namespace MyAdventureRPG
 {
-    public partial class Form1 : Form
+    public partial class SuperAdventure : Form
     {
-        public Form1()
+        // create global player variable (class level)
+        private Player _player;
+        public SuperAdventure()
         {
             InitializeComponent();
+            // declare Player object, store in class-level variable
+            _player = new Player();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -22,15 +27,9 @@ namespace MyAdventureRPG
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void SuperAdventure_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            // Test out the first button by updating the gold Text associated with the Gold control (shown as a string)
-            lblGold.Text = "123";
         }
     }
 }

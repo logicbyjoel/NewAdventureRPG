@@ -11,4 +11,4 @@ C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\bin\Debug\Engine.pdb
 C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.CopyComplete
 C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.exe
 C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.pdb
-C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.Form1.resources
+C:\Users\joelg\source\repos\MyAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.SuperAdventure.resources
