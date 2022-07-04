@@ -20,6 +20,18 @@ namespace MyAdventureRPG
             InitializeComponent();
             // declare Player object, store in class-level variable
             _player = new Player();
+            // initialize values for Player properties
+            _player.CurrentHitPoints = 10;
+            _player.MaximumHitPoints = 10;
+            _player.Gold = 20;
+            _player.ExperiencePoints = 0;
+            _player.Level = 1;
+
+            // output Player stats on labels
+            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+            lblGold.Text = _player.Gold.ToString();
+            lblExperience.Text = _player.ExperiencePoints.ToString();
+            lblLevel.Text = _player.Level.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
