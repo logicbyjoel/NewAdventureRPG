@@ -8,10 +8,18 @@ namespace Engine
 {
     public class Weapon : Item
     {
+        // add param constructor and reference the base class props
+        public Weapon(int id, string name, string namePlural, int maximumDamage, int minimumDamage) : base(id, name, namePlural)
+        {
+            MaximumDamage = maximumDamage;
+            MinimumDamage = minimumDamage;
+        }
         // add Weapon properties
 
-        public string Category { get; set; }
+        public int MaximumDamage { get; set; }
+        public int MinimumDamage { get; set; }
+/*        public string Category { get; set; }
         public int Damage { get; set; }
-        public string AmmoType { get; set; }
+        public string AmmoType { get; set; }*/
     }
 }

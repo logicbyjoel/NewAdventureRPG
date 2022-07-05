@@ -8,6 +8,15 @@ namespace Engine
 {
     public class Quest
     {
+        public Quest(int id, string name, string description, int rewarExperiencePoints, int rewardGold)
+        {
+            ID = id;
+            Name = name;
+            Description = description;
+            RewarExperiencePoints = rewarExperiencePoints;
+            RewardGold = rewardGold;
+        }
+
         // add properties for Quest
         public int ID { get; set; }
         public string Name { get; set; }

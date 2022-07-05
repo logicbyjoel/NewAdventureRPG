@@ -8,6 +8,13 @@ namespace Engine
 {
     public class LivingCreature
     {
+
+        // add param constructor for this base class
+        public LivingCreature(int currentHitPoints, int maximumHitPoints)
+        {
+            CurrentHitPoints = currentHitPoints;
+            MaximumHitPoints = maximumHitPoints;
+        }
         // add properties for LivingCreature
 
         public int CurrentHitPoints { get; set; }
