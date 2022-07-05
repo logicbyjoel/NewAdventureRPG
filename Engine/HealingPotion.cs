@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class HealingPotion
+    // convert HealingPotion into a child class
+    public class HealingPotion : Item
     {
-        // Add class propperties 
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string NamePlural { get; set; }
+        // Add class propperties
         public int AmountToHeal { get; set; }
     }
 }
