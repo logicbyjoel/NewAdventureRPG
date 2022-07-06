@@ -28,6 +28,7 @@ namespace MyAdventureRPG
             // declare Player object, store in class-level variable
             // UPDATE: this instantiation now must meet parameterized construcotr of Player class
             _player = new Player(10, 10, 20, 0, 1);
+
             // initialize values for Player properties
 /*            _player.CurrentHitPoints = 10;
             _player.MaximumHitPoints = 10;
