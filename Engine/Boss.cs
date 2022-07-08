@@ -9,13 +9,16 @@ namespace Engine
     public class Boss : LivingCreature
     {
         // add param constructor and reference base class props
-        public Boss(int currentHitPoints, int maximumHitPoints, int id, string name, int maximumDamage, int rewardExperiencePoints, int rewardGold) : base(currentHitPoints, maximumHitPoints)
+        public Boss(int id, string name, int maximumDamage, int rewardExperiencePoints, int rewardGold, int currentHitPoints, int maximumHitPoints) : base(currentHitPoints, maximumHitPoints)
         {
             ID = id;
             Name = name;
             MaximumDamage = maximumDamage;
             RewardExperiencePoints = rewardExperiencePoints;
             RewardGold = rewardGold;
+            // instantiate table of loot for Boss
+            // NOTE: lists are null until they are set to an empty list
+            LootTable = new List<LootItem>();
 
         }
         // add Boss properties
@@ -25,5 +28,8 @@ namespace Engine
         public int MaximumDamage { get; set; }
         public int RewardExperiencePoints { get; set; }
         public int RewardGold { get; set; }
+
+        // add a loot table for the boss
+        public List<LootItem> LootTable { get; set; }
     }
 }
