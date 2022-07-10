@@ -107,8 +107,35 @@ namespace Engine
             Quest clearFarmersField = new Quest(QUEST_ID_CLEAR_FARMERS_FIELD, "Clear the farmer's field", "Kill snakes in the farmer's field and bring back 3 snake fangs. You will receie an adventurer's pass and 20 gold pieces.", 20, 20);
 
             // add items to clear  farmer's list prop
-            clearFarmersField.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_SNAKE_FANG) 3));,
+            clearFarmersField.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_SNAKE_FANG), 3));
+
+            clearFarmersField.RewardItem = ItemByID(ITEM_ID_ADVENTURER_PASS);
+
+
+            Quests.Add(clearAlchemistGarden);
+            Quests.Add(clearFarmersField);
         }   // end PopulateQuests()
+
+        private static void PopulateLocations()
+        {
+            // create each location
+            Location home = new Location(LOCATION_ID_HOME, "Home", "Your house. You really need to clean up the place.");
+
+            Location townSquare = new Location(LOCATION_ID_TOWN_SQUARE, "Town square", "You see a fountaion.");
+
+            Location guardPost = new Location(LOCATION_ID_GUARD_POST, "Guard post", "There is a large, tough-looking guard here.", ItemByID(ITEM_ID_ADVENTURER_PASS));
+
+            Location alchemistHut = new Location(LOCATION_ID_ALCHEMIST_HUT, "Alchemist hut", "There are many strange plants on the shelves.");
+            // assign quest to this location
+            alchemistHut.QuestAvailableHere = QuestByID(QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
+
+            Location alchemistsGarden = new Location(LOCATION_ID_ALCHEMISTS_GARDEN, "Alchemist's garden", "Many plants are growing here.");
+            alchemistsGarden.BossLivingHere = BossByID(BOSS_ID_RAT);
+
+            Location farmhouse = new Location(LOCATION_ID_FARMHOUSE, "Farmhouse", "There is a small farmhosue with a farmer in front.");
+            farmhouse.QuestAvailableHere = QuestByID(QUEST_ID_CLEAR_FARMERS_FIELD);
+
+        }   // end PopulateLocations()
 
     }
 }
