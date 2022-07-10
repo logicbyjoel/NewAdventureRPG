@@ -51,7 +51,8 @@ namespace Engine
             PopulateLocations();
         }
 
-        public static void PopulateItems()
+        // populate lists of game items into the world
+        private static void PopulateItems()
         {
             Items.Add(new Weapon(ITEM_ID_RUSTY_SWORD, "Rusty sword", "Rusty swords", 0, 5));
             Items.Add(new Item(ITEM_ID_RAT_TAIL, "Rat tail", "Rat tails"));
@@ -65,7 +66,49 @@ namespace Engine
             Items.Add(new Item(ITEM_ID_ADVENTURER_PASS, "Adventure pass", "Adventure passes"));
         }   // end PopulateItems()
 
+        // pupulate all bosses into the world
+        private static void PopulateBosses()
+        {
+            Boss rat = new Boss(BOSS_ID_RAT, "Rat", 5, 3, 10, 3, 3);
+            // add loot list for rat boss
+            rat.LootTable.Add(new LootItem(ItemByID(ITEM_ID_RAT_TAIL), 75, false));
+            rat.LootTable.Add(new LootItem(ItemByID(ITEM_ID_PIECE_OF_FUR), 75, false));
+
+
+            Boss snake = new Boss(BOSS_ID_SNAKE, "Snake", 5, 3, 10, 3, 3);
+            // add loot list for snake boss
+            snake.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SNAKE_FANG), 75, false));
+            snake.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SNAKESKIN), 75, false));
+
+            Boss giantSpider = new Boss(BOSS_ID_GIANT_SPIDER, "Giant spider", 20, 5, 40, 10, 10);
+            // add loot list for giant spider boss
+            giantSpider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_FANG), 75, true));
+            giantSpider.LootTable.Add(new LootItem(ItemByID(ITEM_ID_SPIDER_SILK), 25, false));
+
+            // add each boss object to bosses table or lIST?
+            Bosses.Add(snake);
+            Bosses.Add(rat);
+            Bosses.Add(giantSpider);
+
+        }   // end PopulateBosses()
+
         // TODO: declare functions for PopulateBosses, PopulateQuests, and PopulateLocations
+        private static void PopulateQuests()
+        {
+            // create new quest
+            Quest clearAlchemistGarden = new Quest(QUEST_ID_CLEAR_ALCHEMIST_GARDEN, "Clear the alchemist's garden", "Kill rats in the alchemist's garden and bring back 3 rat tails. You will receive a healing potion and 10 gold pieces.", 20, 10);
+
+            // add items to Clear Albhemist Garden comnpletion list property
+            clearAlchemistGarden.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_RAT_TAIL), 3));
+
+            // reward healing potion upon completion of Clear Alchemist Garden quest
+            clearAlchemistGarden.RewardItem = ItemByID(ITEM_ID_HEALING_POTION);
+
+            Quest clearFarmersField = new Quest(QUEST_ID_CLEAR_FARMERS_FIELD, "Clear the farmer's field", "Kill snakes in the farmer's field and bring back 3 snake fangs. You will receie an adventurer's pass and 20 gold pieces.", 20, 20);
+
+            // add items to clear  farmer's list prop
+            clearFarmersField.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_SNAKE_FANG) 3));,
+        }   // end PopulateQuests()
 
     }
 }
