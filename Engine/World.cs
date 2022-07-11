@@ -135,7 +135,100 @@ namespace Engine
             Location farmhouse = new Location(LOCATION_ID_FARMHOUSE, "Farmhouse", "There is a small farmhosue with a farmer in front.");
             farmhouse.QuestAvailableHere = QuestByID(QUEST_ID_CLEAR_FARMERS_FIELD);
 
+            Location farmersField = new Location(LOCATION_ID_FARM_FIELD, "Farmer's field", "You see rows of vegetables growing here.");
+            farmersField.BossLivingHere = BossByID(BOSS_ID_SNAKE);
+
+            Location bridge = new Location(LOCATION_ID_BRIDGE, "Bridge", "A stone bridge crosses a wide river.");
+
+            Location spiderField = new Location(LOCATION_ID_SPIDER_FIELD, "Forest", "You see spider webs covering the trees in this forest");
+            spiderField.BossLivingHere = BossByID(BOSS_ID_GIANT_SPIDER);
+
+            // Link the locations togeher
+            home.LocationToNorth = townSquare;
+
+            townSquare.LocationToNorth = alchemistHut;
+            townSquare.LocationToSouth = home;
+            townSquare.LocationToEast = guardPost;
+            townSquare.LocationToWest = farmhouse;
+
+            farmhouse.LocationToEast = townSquare;
+            farmhouse.LocationToWest = farmersField;
+
+            farmersField.LocationToEast = farmhouse;
+
+            alchemistHut.LocationToNorth = alchemistsGarden;
+            alchemistHut.LocationToSouth = townSquare;
+
+            alchemistsGarden.LocationToSouth = alchemistHut;
+
+            guardPost.LocationToEast = bridge;
+            guardPost.LocationToWest = townSquare;
+
+            bridge.LocationToWest = guardPost;
+            bridge.LocationToEast = spiderField;
+
+            spiderField.LocationToWest = bridge;
+
+            // add the locations to the static list
+            Locations.Add(home);
+            Locations.Add(townSquare);
+            Locations.Add(guardPost);
+            Locations.Add(alchemistHut);
+            Locations.Add(alchemistsGarden);
+            Locations.Add(farmhouse);
+            Locations.Add(farmersField);
+            Locations.Add(bridge);
+            Locations.Add(spiderField);
+
         }   // end PopulateLocations()
+
+        public static Item ItemByID(int id)
+        {
+            foreach (Item item in Items)
+            {
+                if(item.ID == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }   // end ItemByID()
+
+        public static Boss BossByID(int id)
+        {
+            foreach (Boss boss in Bosses)
+            {
+                if(boss.ID == id)
+                {
+                    return boss;
+                }
+            }
+            return null;
+        }   // end BossByID()
+
+        public static Quest QuestByID(int id)
+        {
+            foreach (Quest quest in Quests)
+            {
+                if(quest.ID == id)
+                {
+                    return quest;
+                }
+            }
+            return null;
+        }   // end QuestByID()
+
+        public static Location LocationByID(int id)
+        {
+            foreach (Location location in Locations)
+            {
+                if(location.ID == id)
+                {
+                    return location;
+                }
+            }
+            return null;
+        }   // end LocationByID()
 
     }
 }
