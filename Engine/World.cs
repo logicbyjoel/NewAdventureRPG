@@ -71,6 +71,7 @@ namespace Engine
         {
             Boss rat = new Boss(BOSS_ID_RAT, "Rat", 5, 3, 10, 3, 3);
             // add loot list for rat boss
+            // NOTE: we are storing instantiated objects in properties using ItemByID()
             rat.LootTable.Add(new LootItem(ItemByID(ITEM_ID_RAT_TAIL), 75, false));
             rat.LootTable.Add(new LootItem(ItemByID(ITEM_ID_PIECE_OF_FUR), 75, false));
 
@@ -102,6 +103,7 @@ namespace Engine
             clearAlchemistGarden.QuestCompletionItems.Add(new QuestCompletionItem(ItemByID(ITEM_ID_RAT_TAIL), 3));
 
             // reward healing potion upon completion of Clear Alchemist Garden quest
+            // NOTE: we are storing instantiated objects in properties using ItemByID()
             clearAlchemistGarden.RewardItem = ItemByID(ITEM_ID_HEALING_POTION);
 
             Quest clearFarmersField = new Quest(QUEST_ID_CLEAR_FARMERS_FIELD, "Clear the farmer's field", "Kill snakes in the farmer's field and bring back 3 snake fangs. You will receie an adventurer's pass and 20 gold pieces.", 20, 20);
@@ -123,6 +125,7 @@ namespace Engine
 
             Location townSquare = new Location(LOCATION_ID_TOWN_SQUARE, "Town square", "You see a fountaion.");
 
+            // NOTE: we are storing instantiated objects in properties using ItemByID()
             Location guardPost = new Location(LOCATION_ID_GUARD_POST, "Guard post", "There is a large, tough-looking guard here.", ItemByID(ITEM_ID_ADVENTURER_PASS));
 
             Location alchemistHut = new Location(LOCATION_ID_ALCHEMIST_HUT, "Alchemist hut", "There are many strange plants on the shelves.");
@@ -130,6 +133,7 @@ namespace Engine
             alchemistHut.QuestAvailableHere = QuestByID(QUEST_ID_CLEAR_ALCHEMIST_GARDEN);
 
             Location alchemistsGarden = new Location(LOCATION_ID_ALCHEMISTS_GARDEN, "Alchemist's garden", "Many plants are growing here.");
+            // NOTE: we are storing instantiated objects in properties using BossByID()
             alchemistsGarden.BossLivingHere = BossByID(BOSS_ID_RAT);
 
             Location farmhouse = new Location(LOCATION_ID_FARMHOUSE, "Farmhouse", "There is a small farmhosue with a farmer in front.");
