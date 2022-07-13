@@ -19,7 +19,7 @@ namespace Engine
 
             // we are using Math.Max, and subtracting 0.00000000001, 
             // to ensure "m,ultiplier" will always be between 0.0 and .99999999999
-            // otherwise, it is possible for it to be "1", which causes problems in our rounding
+            // otherwise, it is possible for it to be "1", which causes problems in our rounding.
             double multiplier = Math.Max(0, (asciiValueOfRandomCharacter / 255d) - 0.00000000001d);
 
             // we need to add one tot he range to allow for the rounding done with Math.Floor

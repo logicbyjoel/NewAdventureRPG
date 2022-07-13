@@ -17,6 +17,8 @@ namespace MyAdventureRPG
         private Player _player;
         public SuperAdventure()
         {
+            int testing = 0;
+            int test2 = 1;
             InitializeComponent();
 
             // declare Location object, initialize properties for ID, Name, and Descritption props
