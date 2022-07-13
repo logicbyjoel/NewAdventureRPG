@@ -13,15 +13,14 @@ namespace MyAdventureRPG
 {
     public partial class SuperAdventure : Form
     {
-        // create global player variable (class level)
+        // create global player variable (class level) ..keep? 
         private Player _player;
         public SuperAdventure()
         {
-            int testing = 0;
-            int test2 = 1;
+        
             InitializeComponent();
 
-            // declare Location object, initialize properties for ID, Name, and Descritption props
+            // declare Location object, initialize properties for ID, Name, and Descritption props..keep?
             Location location = new Location(1, "Home", "This is your house.");
 /*            location.Name = "Home";
             location.ID = 1;
@@ -29,7 +28,7 @@ namespace MyAdventureRPG
 
             // declare Player object, store in class-level variable
             // UPDATE: this instantiation now must meet parameterized construcotr of Player class
-            _player = new Player(10, 10, 20, 0, 1);
+            _player = new Player(10, 10, 20, 0, 1); // keep?
 
             // initialize values for Player properties
 /*            _player.CurrentHitPoints = 10;
@@ -38,7 +37,7 @@ namespace MyAdventureRPG
             _player.ExperiencePoints = 0;
             _player.Level = 1;*/
 
-            // output Player stats on labels
+            // output Player stats on labels    .. keep?
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             lblGold.Text = _player.Gold.ToString();
             lblExperience.Text = _player.ExperiencePoints.ToString();

@@ -26,6 +26,9 @@ namespace Engine
         public int ExperiencePoints { get; set; }
         public int Level { get; set; }
 
+        // prop for updating the player's location at all times
+        public Location CurrentLocation { get; set; }
+
         // declare props for InventoryItem, LootItem, PlayerQuest, and QuestCompletionItem classes
         // to hold lists contatining InventoryItem and PlayerQuest objects
         public List<InventoryItem> Inventory { get; set; }
