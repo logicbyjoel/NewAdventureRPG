@@ -15,6 +15,9 @@ namespace MyAdventureRPG
     {
         // create global player variable (class level) ..keep? 
         private Player _player;
+
+        // create global boss variable (class level)
+        private Boss _currentBoss;
         public SuperAdventure()
         {
         
@@ -42,7 +45,75 @@ namespace MyAdventureRPG
             lblGold.Text = _player.Gold.ToString();
             lblExperience.Text = _player.ExperiencePoints.ToString();
             lblLevel.Text = _player.Level.ToString();
-        } // end SuperAdventure()
+        } // end SuperAdventure constructor
+
+        // shared function to call upon any player movements
+        private void MoveTo(Location destination)
+        {
+            // check if this location requires an item to enter
+
+            // if player does not have required item
+
+            // show message
+
+            // do not allow player to enter (stop processing this move) 
+        }
+
+        // update the player's current location
+
+        // show location name and description
+
+        // show/hide the available movement(buttons)
+
+        // refill player's health (assume player healed/rested during move)
+
+        // update hit points display in UI
+
+        // chedck if this location have a quest
+
+        // check if the player have this quest
+
+        // check if quest is completed
+
+        // (else) check if player havs items to complee this quest
+
+        // complete the quest
+
+        // show messages
+
+        // remove quest completion items from inventory
+
+        // give quest rewareds
+        
+        // mark player's quest as completed
+
+        // if player does not have teh quest , give player the quest
+
+        // show message
+
+        // add this quest to  player's quest list
+
+        // check if there is a boss at this loaciotn
+
+        // if true , diplay mesage
+
+        // spawn new boss to fight
+
+        // show combat combo boxes and buttons
+
+        // repopulate comboboxes (in case the inventory has changed)
+
+        // if boss at this location is false, hide combat comboboxes and buttons
+
+        // refresh the player's inventory int he UI (in case it has changed)
+
+        // refresh the player's queest list in the UI (in case it has changeed)
+
+        // refresh cboWeapons combobox in the UI
+
+        // refresh cboPotgions in the UI
+
+        // end?
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -54,31 +125,33 @@ namespace MyAdventureRPG
 
         }
         // TODO: add functions to button clicks
+
+        // button north
         private void btnNorth_Click(object sender, EventArgs e)
         {
 
         }
-
+        // button soutn
         private void btnSouth_Click(object sender, EventArgs e)
         {
 
         }
-
+        // button east
         private void btnEast_Click(object sender, EventArgs e)
         {
 
         }
-
+        // button west
         private void btnWest_Click(object sender, EventArgs e)
         {
 
         }
-
+        // button use weapon
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
 
         }
-
+        // button use potion
         private void btnUsePotion_Click(object sender, EventArgs e)
         {
 
