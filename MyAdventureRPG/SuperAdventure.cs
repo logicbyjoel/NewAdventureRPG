@@ -14,31 +14,15 @@ namespace MyAdventureRPG
     public partial class SuperAdventure : Form
     {
         // create global player variable (class level) ..keep? 
-        private Player _player;
-
-        // create global boss variable (class level)
+        private Player _player;        // create global boss variable (class level)
         private Boss _currentBoss;
         public SuperAdventure()
         {
-        
             InitializeComponent();
-
-            // declare Location object, initialize properties for ID, Name, and Descritption props..keep?
-            Location location = new Location(1, "Home", "This is your house.");
-/*            location.Name = "Home";
-            location.ID = 1;
-            location.Description = "this is your house.";*/
 
             // declare Player object, store in class-level variable
             // UPDATE: this instantiation now must meet parameterized construcotr of Player class
             _player = new Player(10, 10, 20, 0, 1); // keep?
-
-            // initialize values for Player properties
-/*            _player.CurrentHitPoints = 10;
-            _player.MaximumHitPoints = 10;
-            _player.Gold = 20;
-            _player.ExperiencePoints = 0;
-            _player.Level = 1;*/
 
             // output Player stats on labels    .. keep?
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
@@ -47,17 +31,7 @@ namespace MyAdventureRPG
             lblLevel.Text = _player.Level.ToString();
         } // end SuperAdventure constructor
 
-        // shared function to call upon any player movements
-        private void MoveTo(Location destination)
-        {
-            // check if this location requires an item to enter
 
-            // if player does not have required item
-
-            // show message
-
-            // do not allow player to enter (stop processing this move) 
-        }
 
         // update the player's current location
 
@@ -156,5 +130,35 @@ namespace MyAdventureRPG
         {
 
         }
+
+        // shared function to call upon any player movements
+        private void MoveTo(Location destination)
+        {
+            // check if this location requires an item to enter
+            if (destination.ItemRequiredToEnter != null)
+            {
+
+                // if player does not have required item
+                bool playerHasRequiredItem = false;
+
+                foreach (InventoryItem ii in _player.Inventory)
+                {
+                    if(ii.Details.ID == destination.ItemRequiredToEnter.ID)
+                    {
+                        //has required item
+                        playerHasRequiredItem = true;
+                        break;
+                    }
+                }
+
+                if (!playerHasRequiredItem)
+                {
+                    // show message
+                    rtbMessages.Text += "You must have a " + destination.ItemRequiredToEnter.Name + " to enter this loaciton." + Environment.NewLine;
+                    // do not allow player to enter (stop processing this move)
+                    return;
+                }
+            }
+        }   // end MoveTo()
     }
 }
