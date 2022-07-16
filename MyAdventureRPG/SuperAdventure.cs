@@ -55,36 +55,6 @@ namespace MyAdventureRPG
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // if true , diplay mesage
-
-        // spawn new boss to fight
-
-        // show combat combo boxes and buttons
-
-        // repopulate comboboxes (in case the inventory has changed)
-
-        // if boss at this location is false, hide combat comboboxes and buttons
-
-        // refresh the player's inventory int he UI (in case it has changed)
-
-        // refresh the player's queest list in the UI (in case it has changeed)
-
         // refresh cboWeapons combobox in the UI
 
         // refresh cboPotgions in the UI
@@ -319,7 +289,59 @@ namespace MyAdventureRPG
                 }
             }
             // check if there is a boss at this loaciotn
+            if(destination.BossLivingHere != null)
+            {
+                // if true , diplay mesage of what player sees
+                rtbMessages.Text += "You see a " + destination.BossLivingHere.Name + Environment.NewLine;
 
+                // spawn new boss, pertaining to current location, to fight using the standard boss in the world
+                Boss standardBoss = World.BossByID(destination.BossLivingHere.ID);
+
+                _currentBoss = new Boss(standardBoss.ID, standardBoss.Name, standardBoss.MaximumDamage, standardBoss.RewardExperiencePoints, standardBoss.RewardGold, standardBoss.CurrentHitPoints, standardBoss.MaximumHitPoints);
+
+                // populate boss' loot items
+                foreach (LootItem lootItem in standardBoss.LootTable)
+                {
+                    _currentBoss.LootTable.Add(lootItem);
+                }
+
+                // show combat combo boxes and buttons
+                cboPotions.Visible = true;
+                cboWeapons.Visible = true;
+                btnUsePotion.Visible = true;
+                btnUseWeapon.Visible = true;
+            }
+            // else, there is no boss at this destination
+            else
+            {
+                _currentBoss = null;
+
+                // if boss at this location is false, hide combat comboboxes and buttons
+                cboWeapons.Visible = false;
+                cboPotions.Visible = false;
+                btnUsePotion.Visible = false;
+                btnUseWeapon.Visible = false;
+            }
+
+            // refresh the player's inventory list in the UI (in case it has changed)
+            dgvInventory.ColumnCount = 2;
+            dgvInventory.Columns[0].Name = "Name";
+            dgvInventory.Columns[0].Width = 197;
+            dgvInventory.Columns[1].Name = "Quantity";
+
+            dgvInventory.Rows.Clear();
+
+            foreach(InventoryItem inventoryItem in _player.Inventory)
+            {
+                if(inventoryItem.Quantity > 0)
+                {
+                    dgvInventory.Rows.Add(new[] { inventoryItem.Details.Name, inventoryItem.Quantity.ToString() });
+                }
+            }
+
+            // refresh the player's queest list in the UI (in case it has changeed)
+            dgv
+            // repopulate comboboxes (in case the inventory has changed)
         }   // end MoveTo()
     }
 }
