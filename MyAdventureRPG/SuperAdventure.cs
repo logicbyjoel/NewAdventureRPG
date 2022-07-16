@@ -66,15 +66,10 @@ namespace MyAdventureRPG
 
 
 
-        // mark player's quest as completed
 
-        // if player does not have teh quest , give player the quest
 
-        // show message
 
-        // add this quest to  player's quest list
 
-        // check if there is a boss at this loaciotn
 
         // if true , diplay mesage
 
@@ -126,7 +121,7 @@ namespace MyAdventureRPG
             if (destination.ItemRequiredToEnter != null)
             {
 
-                // assume      player does not have required item
+                // assume player does not have required item
                 bool playerHasRequiredItem = false;
 
                 foreach (InventoryItem ii in _player.Inventory)
@@ -143,7 +138,7 @@ namespace MyAdventureRPG
                 {
                     // show message
                     rtbMessages.Text += "You must have a " + destination.ItemRequiredToEnter.Name + " to enter this loaciton." + Environment.NewLine;
-                    // do not allow player to enter (stop processing this move)
+                    // do not allow player to enter (stop processing this move and exit function)
                     return;
                 }
             }
@@ -238,8 +233,8 @@ namespace MyAdventureRPG
                             rtbMessages.Text += Environment.NewLine;
                             rtbMessages.Text += "You coimplete the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
 
-                        // remove quest completion items from inventory
-                        foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
+                            // remove quest completion items from inventory
+                            foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
                             {
                                 foreach(InventoryItem ii in _player.Inventory)
                                 {
@@ -253,16 +248,78 @@ namespace MyAdventureRPG
 
                             // give quest rewareds
                             rtbMessages.Text += "You receive: " + Environment.NewLine;
+                            rtbMessages.Text += destination.QuestAvailableHere.RewarExperiencePoints.ToString() + "experience points "+ Environment.NewLine;
+                            rtbMessages.Text += destination.QuestAvailableHere.RewardGold.ToString() + " gold" + Environment.NewLine;
+                            rtbMessages.Text += destination.QuestAvailableHere.RewardItem.Name + Environment.NewLine;
+                            rtbMessages.Text += Environment.NewLine;
 
+                            _player.ExperiencePoints += destination.QuestAvailableHere.RewarExperiencePoints;
+                            _player.Gold += destination.QuestAvailableHere.RewardGold;
+
+                            // add the reward item to the player's inventory
+                            bool addedItemToPlayerInventory = false;
+
+                            foreach (InventoryItem ii in _player.Inventory)
+                            {
+                                // check for existence of this item in inventory
+                                if(ii.Details.ID == destination.QuestAvailableHere.RewardItem.ID)
+                                {
+                                    // player already has item, increase the quantity
+                                    ii.Quantity++;
+
+                                    addedItemToPlayerInventory = true;
+
+                                    break;
+                                }
+                            }
+
+                            // player does not have the item, add it to their inventory
+                            if (!addedItemToPlayerInventory)
+                            {
+                                _player.Inventory.Add(new InventoryItem(destination.QuestAvailableHere.RewardItem, 1));
+                            }
+
+                            // mark player's quest as completed
+                            // find the quest in the play'ers quest list
+                            foreach (PlayerQuest pq in _player.Quests)
+                            {
+                                if(pq.Details.ID == destination.QuestAvailableHere.ID)
+                                {
+                                    pq.IsCompleted = true;
+
+                                    break;
+                                }
+                            }
                         }
 
                     }
 
                 }
-
-
-
+                // (else) if player does not have teh quest , give player the quest
+                else
+                {
+                    // show messages (singular or plural forms of items)
+                    rtbMessages.Text += "you receive the " + destination.QuestAvailableHere.Name + " quest." + Environment.NewLine;
+                    rtbMessages.Text += destination.QuestAvailableHere.Description + Environment.NewLine;
+                    rtbMessages.Text += "To complete it, return with: " + Environment.NewLine;
+                    foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
+                    {
+                        if(qci.Quantity == 1)
+                        {
+                            rtbMessages.Text += qci.Quantity.ToString() + " " + qci.Details.Name + Environment.NewLine;
+                        }
+                        else
+                        {
+                            rtbMessages.Text += qci.Quantity.ToString() + " " + qci.Details.NamePlural + Environment.NewLine;
+                        }
+                    }
+                    rtbMessages.Text += Environment.NewLine;
+                    // add this quest to  player's quest list
+                    _player.Quests.Add(new PlayerQuest(destination.QuestAvailableHere));
+                }
             }
+            // check if there is a boss at this loaciotn
+
         }   // end MoveTo()
     }
 }
