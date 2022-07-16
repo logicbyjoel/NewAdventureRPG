@@ -31,34 +31,41 @@ namespace MyAdventureRPG
             lblLevel.Text = _player.Level.ToString();
         } // end SuperAdventure constructor
 
+        // button for an attempt to move north
+        private void btnNorth_Click(object sender, EventArgs e)
+        {
+            MoveTo(_player.CurrentLocation.LocationToNorth);
+        }
+        // button for an attempt to move soutn
+        private void btnSouth_Click(object sender, EventArgs e)
+        {
+            MoveTo(_player.CurrentLocation.LocationToSouth);
+        }
+        // button for an attempt to move  east
+        private void btnEast_Click(object sender, EventArgs e)
+        {
+            MoveTo(_player.CurrentLocation.LocationToEast);
+        }
+        // button for an attempt to move  west
+        private void btnWest_Click(object sender, EventArgs e)
+        {
+            MoveTo(_player.CurrentLocation.LocationToWest);
+        }
 
 
-        // update the player's current location
 
-        // show location name and description
 
-        // show/hide the available movement(buttons)
 
-        // refill player's health (assume player healed/rested during move)
 
-        // update hit points display in UI
 
-        // chedck if this location have a quest
 
-        // check if the player have this quest
 
-        // check if quest is completed
 
-        // (else) check if player havs items to complee this quest
 
-        // complete the quest
 
-        // show messages
 
-        // remove quest completion items from inventory
 
-        // give quest rewareds
-        
+
         // mark player's quest as completed
 
         // if player does not have teh quest , give player the quest
@@ -100,26 +107,7 @@ namespace MyAdventureRPG
         }
         // TODO: add functions to button clicks
 
-        // button north
-        private void btnNorth_Click(object sender, EventArgs e)
-        {
 
-        }
-        // button soutn
-        private void btnSouth_Click(object sender, EventArgs e)
-        {
-
-        }
-        // button east
-        private void btnEast_Click(object sender, EventArgs e)
-        {
-
-        }
-        // button west
-        private void btnWest_Click(object sender, EventArgs e)
-        {
-
-        }
         // button use weapon
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
@@ -131,14 +119,14 @@ namespace MyAdventureRPG
 
         }
 
-        // shared function to call upon any player movements
+        // shared function to call upon any player movements (NOTE: newLocation == destination)
         private void MoveTo(Location destination)
         {
             // check if this location requires an item to enter
             if (destination.ItemRequiredToEnter != null)
             {
 
-                // if player does not have required item
+                // assume      player does not have required item
                 bool playerHasRequiredItem = false;
 
                 foreach (InventoryItem ii in _player.Inventory)
@@ -150,7 +138,7 @@ namespace MyAdventureRPG
                         break;
                     }
                 }
-
+                // if player does not have required item
                 if (!playerHasRequiredItem)
                 {
                     // show message
@@ -158,6 +146,122 @@ namespace MyAdventureRPG
                     // do not allow player to enter (stop processing this move)
                     return;
                 }
+            }
+
+            // update the player's current location
+            _player.CurrentLocation = destination;
+
+            // show/hide the available movement(buttons)
+            btnNorth.Visible = (destination.LocationToNorth != null);
+            btnSouth.Visible = (destination.LocationToSouth != null);
+            btnEast.Visible = (destination.LocationToEast != null);
+            btnWest.Visible = (destination.LocationToWest != null);
+
+            // show location name and description
+            rtbLocation.Text = destination.Name + Environment.NewLine;
+            rtbLocation.Text = destination.Description +Environment.NewLine;
+
+            // refill player's health (assume player healed/rested during move)
+            _player.CurrentHitPoints = _player.MaximumHitPoints;
+
+            // update hit points display in UI
+            lblHitPoints.Text = _player.MaximumHitPoints.ToString();
+
+            // chedck if this location have a quest
+            if(destination.QuestAvailableHere != null)
+            {
+                // check if the player have this quest
+                // check if quest is completed
+                bool playerAlreadyHasQuest = false;
+                bool playerAlreadyCompletedQuest = false;
+
+                foreach(PlayerQuest playerQuest in _player.Quests)
+                {
+                    if(playerQuest.Details.ID == destination.QuestAvailableHere.ID)
+                    {
+                        playerAlreadyHasQuest = true;
+
+                        if (playerQuest.IsCompleted)
+                        {
+                            playerAlreadyCompletedQuest = true;
+                        }
+                    }
+                }
+
+                // check if the player have this quest
+                if (playerAlreadyHasQuest)
+                {
+                    // check if quest is completed
+                    if (!playerAlreadyCompletedQuest)
+                    {
+                        // (else) check if player havs items to complee this quest
+                        bool playerHasAllItemsToCompleteQuest = true;
+
+                        foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
+                        {
+                            bool foundItemInPlayersInventory = false;
+
+                            // check all inventory items to see if they have it and enought quantity
+                            foreach (InventoryItem ii in _player.Inventory)
+                            {
+                                // check for item ID in player's inventory
+                                if(ii.Details.ID == qci.Details.ID)
+                                {
+                                    foundItemInPlayersInventory = true;
+
+                                    if(ii.Quantity < qci.Quantity)
+                                    {
+                                        // player does not have enough of this item to complete the quest
+                                        playerHasAllItemsToCompleteQuest = false;
+
+                                        // no need to continue checking for other questitems
+                                        break;
+                                    }
+                                    // item found, do not check the rest of player's inventory
+                                    break;
+                                }
+                            }
+                            // if item not found, set our var and stop looking for other items
+                            if(!foundItemInPlayersInventory)
+                            {
+                                // player does not have this item in inventory
+                                playerHasAllItemsToCompleteQuest = false;
+                                // no need to continue to searhc for other quest completion items
+                                break;
+                            }
+                        }
+                        // player has all items to complete the qest
+                        if (playerHasAllItemsToCompleteQuest)
+                        {
+                            // complete the quest
+                            // display message
+                            rtbMessages.Text += Environment.NewLine;
+                            rtbMessages.Text += "You coimplete the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
+
+                        // remove quest completion items from inventory
+                        foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
+                            {
+                                foreach(InventoryItem ii in _player.Inventory)
+                                {
+                                    if(ii.Details.ID == qci.Details.ID)
+                                    {
+                                        ii.Quantity -= qci.Quantity;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // give quest rewareds
+                            rtbMessages.Text += "You receive: " + Environment.NewLine;
+
+                        }
+
+                    }
+
+                }
+
+
+
             }
         }   // end MoveTo()
     }

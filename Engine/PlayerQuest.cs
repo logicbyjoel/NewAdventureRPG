@@ -8,7 +8,6 @@ namespace Engine
 {
     public class PlayerQuest
     {
-
         // Purpose: utilize as list property in Boss, Plyaer, and Quest classes
 
         // add param. constructor
@@ -20,6 +19,5 @@ namespace Engine
         // add properties
         public Quest Details { get; set; }
         public bool IsCompleted { get; set; }
-        
     }
 }
