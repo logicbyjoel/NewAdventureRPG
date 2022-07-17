@@ -55,7 +55,6 @@ namespace MyAdventureRPG
 
 
 
-        // refresh cboWeapons combobox in the UI
 
         // refresh cboPotgions in the UI
 
@@ -72,17 +71,6 @@ namespace MyAdventureRPG
         }
         // TODO: add functions to button clicks
 
-
-        // button use weapon
-        private void btnUseWeapon_Click(object sender, EventArgs e)
-        {
-
-        }
-        // button use potion
-        private void btnUsePotion_Click(object sender, EventArgs e)
-        {
-
-        }
 
         // shared function to call upon any player movements (NOTE: newLocation == destination)
         private void MoveTo(Location destination)
@@ -316,7 +304,7 @@ namespace MyAdventureRPG
             {
                 _currentBoss = null;
 
-                // if boss at this location is false, hide combat comboboxes and buttons
+                // hide combat comboboxes and buttons
                 cboWeapons.Visible = false;
                 cboPotions.Visible = false;
                 btnUsePotion.Visible = false;
@@ -324,6 +312,8 @@ namespace MyAdventureRPG
             }
 
             // refresh the player's inventory list in the UI (in case it has changed)
+            dgvInventory.RowHeadersVisible = false;
+
             dgvInventory.ColumnCount = 2;
             dgvInventory.Columns[0].Name = "Name";
             dgvInventory.Columns[0].Width = 197;
@@ -340,8 +330,89 @@ namespace MyAdventureRPG
             }
 
             // refresh the player's queest list in the UI (in case it has changeed)
-            dgv
-            // repopulate comboboxes (in case the inventory has changed)
+            dgvQuests.RowHeadersVisible = false;
+
+            dgvQuests.ColumnCount = 2;
+            dgvQuests.Columns[0].Name = "Name";
+            dgvQuests.Columns[0].Width = 197;
+            dgvQuests.Columns[1].Name = "Done?";
+
+            dgvQuests.Rows.Clear();
+
+            foreach (PlayerQuest playerQuest in _player.Quests)
+            {
+                dgvQuests.Rows.Add(new[] { playerQuest.Details.Name, playerQuest.IsCompleted.ToString() });
+            }
+
+            // refresh cboWeapons combobox in the UI
+            List<Weapon> weapons = new List<Weapon>();
+
+            foreach (InventoryItem inventoryItem in _player.Inventory)
+            {
+                if (inventoryItem.Details is Weapon)
+                {
+                    if(inventoryItem.Quantity > 0)
+                    {
+                        weapons.Add((Weapon)inventoryItem.Details);
+                    }    
+                }
+            }
+
+            if(weapons.Count == 0)
+            {
+                // player has no wepons, hide the weapon combobox and "use" buttons
+                cboWeapons.Visible = false;
+                btnUseWeapon.Visible = false;
+            }
+            else
+            {
+                cboWeapons.DataSource = weapons;
+                cboWeapons.DisplayMember = "Name";
+                cboWeapons.ValueMember = "ID";
+
+                // start at iundex 0
+                cboWeapons.SelectedIndex = 0;
+            }
+
+            // repopulate potions comboboxes (in case the inventory has changed)
+            List<HealingPotion> healingPotions = new List<HealingPotion>();
+
+            foreach (InventoryItem inventoryItem in _player.Inventory)
+            {
+                if(inventoryItem.Details is HealingPotion)
+                {
+                    if(inventoryItem.Quantity > 0)
+                    {
+                        healingPotions.Add((HealingPotion)inventoryItem.Details);
+                    }
+                }
+            }
+
+            if(healingPotions.Count == 0)
+            {
+                // player has no more helaing potions, hide teh combobox and "use" button
+                cboPotions.Visible = false;
+                btnUsePotion.Visible = false;
+            }
+            else
+            {
+                cboPotions.DataSource = healingPotions;
+                cboPotions.DisplayMember = "Name";
+                cboPotions.ValueMember = "ID";
+
+                cboPotions.SelectedIndex = 0;
+            }
         }   // end MoveTo()
+
+        // button use weapon
+        private void btnUseWeapon_Click(object sender, EventArgs e)
+        {
+
+        }
+        // button use potion
+        private void btnUsePotion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
