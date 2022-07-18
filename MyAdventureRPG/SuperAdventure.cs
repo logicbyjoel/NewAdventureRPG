@@ -52,14 +52,6 @@ namespace MyAdventureRPG
             MoveTo(_player.CurrentLocation.LocationToWest);
         }
 
-
-
-
-
-        // refresh cboPotgions in the UI
-
-        // end?
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -69,8 +61,6 @@ namespace MyAdventureRPG
         {
 
         }
-        // TODO: add functions to button clicks
-
 
         // shared function to call upon any player movements (NOTE: newLocation == destination)
         private void MoveTo(Location destination)
