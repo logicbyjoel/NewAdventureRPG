@@ -33,13 +33,29 @@ namespace Engine
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
-
         }
 
-        // start refactoring code from MoveTo()
-        public bool HasRequiredItemToEnterThisLocation(Location location)
+        // start refactoring code from SuperAdventure.cs > MyAdventureRPG SuperAdventure > MoveTo()
+        public bool HasRequiredItemToEnterThisLocation(Location destination)
         {
+            if(destination.ItemRequiredToEnter == null)
+            {
+                // no required item for this location, return true
+                return true;
+            }
 
+            // check if the player has the required item in their inventory
+            foreach (InventoryItem ii in Inventory)
+            {
+                if(ii.Details.ID == destination.ItemRequiredToEnter.ID)
+                {
+                    // found the requjired item, 
+                    return true;
+                }
+            }
+
+            // required item not found in inventory
+            return false;
         }   // end HasRequiredItemToEnterThisLocation()
 
         public bool HasThisQuest(Quest quest)
