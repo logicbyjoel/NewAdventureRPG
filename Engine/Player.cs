@@ -100,20 +100,58 @@ namespace Engine
                     if(ii.Details.ID == qci.Details.ID) // player has the item in inventory
                     {
                         foundItemInPlayersInventory = true;
+
+                        if(ii.Quantity < qci.Quantity)  // player does not have enough of this item to complete the quest
+                        {
+                            return false;
+                        }
                     }
                 }
+
+                // player does not have any of this quest completion items in their inventory
+                if (!foundItemInPlayersInventory)
+                {
+                    return false;
+                }
             }
-        }
+
+            // if we made it here, the player must hnave all the required items, and enough of them, to complete the quest
+            return true;
+        }   // end HasAllQuestCompletionItems()
 
         public void RemoveQuestCompletionItems(Quest quest)
         {
-
-        }
+            // find all quest completion items to remove from inventory
+            foreach (QuestCompletionItem qci in quest.QuestCompletionItems)
+            {
+                foreach (InventoryItem ii in Inventory)
+                {
+                    if(ii.Details.ID == qci.Details.ID)
+                    {
+                        // subtract  the quantity from the play'ers inventory that was needed to complete the quest
+                        ii.Quantity -= qci.Quantity;
+                        break;
+                    }
+                }
+            }
+        }   // end RemoveQuestCompletionItems()
 
         public void AddItemToInventory(Item itemToAdd)
         {
+            foreach (InventoryItem ii in Inventory)
+            {
+                // check for a matching item in inventory to add to its quantity
+                if(ii.Details.ID == itemToAdd.ID)
+                {
+                    // item of same id is found in inventory, increment quantity
+                    ii.Quantity++;
 
-        }
+                    return; // item was added, exit the function
+                }
+            }
+            // item was not found, add this item to their inventory, with quantity of 1
+            Inventory.Add(new InventoryItem(itemToAdd, 1));
+        }   // end AddItemToInventory()
 
         public void MarkQuestCompleted(Quest quest)
         {
