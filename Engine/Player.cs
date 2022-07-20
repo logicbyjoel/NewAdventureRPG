@@ -149,13 +149,22 @@ namespace Engine
                     return; // item was added, exit the function
                 }
             }
-            // item was not found, add this item to their inventory, with quantity of 1
+            // item was not found, add this item to their inventory as a new item, with quantity of 1
             Inventory.Add(new InventoryItem(itemToAdd, 1));
         }   // end AddItemToInventory()
 
         public void MarkQuestCompleted(Quest quest)
         {
+            // check player's quest to locate the quest in question
+            foreach (PlayerQuest playerQuest in Quests)
+            {
+                if(playerQuest.Details.ID == quest.ID)
+                {
+                    playerQuest.IsCompleted = true;
 
+                    return; // we found teh quest, and marked it as complet. exit the function
+                }
+            }
         }
     }
 }
