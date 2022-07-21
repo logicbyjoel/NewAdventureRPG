@@ -165,6 +165,6 @@ namespace Engine
                     return; // we found teh quest, and marked it as complet. exit the function
                 }
             }
-        }
+        }   // end MarkQuestCompleted()
     }
 }

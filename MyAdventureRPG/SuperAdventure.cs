@@ -66,29 +66,12 @@ namespace MyAdventureRPG
         private void MoveTo(Location destination)
         {
             // check if this location requires an item to enter
-            if (destination.ItemRequiredToEnter != null)
+            if (!_player.HasRequiredItemToEnterThisLocation(destination))
             {
-
-                // assume player does not have required item
-                bool playerHasRequiredItem = false;
-
-                foreach (InventoryItem ii in _player.Inventory)
-                {
-                    if(ii.Details.ID == destination.ItemRequiredToEnter.ID)
-                    {
-                        //has required item
-                        playerHasRequiredItem = true;
-                        break;
-                    }
-                }
-                // if player does not have required item
-                if (!playerHasRequiredItem)
-                {
                     // show message
                     rtbMessages.Text += "You must have a " + destination.ItemRequiredToEnter.Name + " to enter this loaciton." + Environment.NewLine;
                     // do not allow player to enter (stop processing this move and exit function)
                     return;
-                }
             }
 
             // update the player's current location
@@ -115,21 +98,9 @@ namespace MyAdventureRPG
             {
                 // check if the player have this quest
                 // check if quest is completed
-                bool playerAlreadyHasQuest = false;
-                bool playerAlreadyCompletedQuest = false;
+                bool playerAlreadyHasQuest = _player.HasThisQuest(destination.QuestAvailableHere);
+                bool playerAlreadyCompletedQuest = _player.CompletedThisQuest(destination.QuestAvailableHere);
 
-                foreach(PlayerQuest playerQuest in _player.Quests)
-                {
-                    if(playerQuest.Details.ID == destination.QuestAvailableHere.ID)
-                    {
-                        playerAlreadyHasQuest = true;
-
-                        if (playerQuest.IsCompleted)
-                        {
-                            playerAlreadyCompletedQuest = true;
-                        }
-                    }
-                }
 
                 // check if the player have this quest
                 if (playerAlreadyHasQuest)
@@ -138,7 +109,7 @@ namespace MyAdventureRPG
                     if (!playerAlreadyCompletedQuest)
                     {
                         // (else) check if player havs items to complee this quest
-                        bool playerHasAllItemsToCompleteQuest = true;
+                        bool playerHasAllItemsToCompleteQuest = _player.HasAllQuestCompletionItems(destination.QuestAvailableHere);
 
                         foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
                         {
