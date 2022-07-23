@@ -23,8 +23,11 @@ namespace MyAdventureRPG
             // declare Player object, store in class-level variable
             // UPDATE: this instantiation now must meet parameterized construcotr of Player class
             _player = new Player(10, 10, 20, 0, 1); // keep?
+            // move to home
+            MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+            _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_RUSTY_SWORD), 1));
 
-            // output Player stats on labels    .. keep?
+            // output Player stats on labels   
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             lblGold.Text = _player.Gold.ToString();
             lblExperience.Text = _player.ExperiencePoints.ToString();
@@ -50,16 +53,6 @@ namespace MyAdventureRPG
         private void btnWest_Click(object sender, EventArgs e)
         {
             MoveTo(_player.CurrentLocation.LocationToWest);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SuperAdventure_Load(object sender, EventArgs e)
-        {
-
         }
 
         // shared function to call upon any player movements (NOTE: newLocation == destination)
@@ -114,8 +107,7 @@ namespace MyAdventureRPG
                         // player has all items to complete the qest
                         if (playerHasAllItemsToCompleteQuest)
                         {
-                            // complete the quest
-                            // display message
+                            // complete the questl; display message
                             rtbMessages.Text += Environment.NewLine;
                             rtbMessages.Text += "You coimplete the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
 
@@ -199,57 +191,75 @@ namespace MyAdventureRPG
                 btnUsePotion.Visible = false;
                 btnUseWeapon.Visible = false;
             }
+            // refresh player's inventory list
+        UpdateInventoryListInUI();
 
-            // refresh the player's inventory list in the UI (in case it has changed)
+            // refresh player's quest list
+            UpdateQuestListInUI();
+
+            // refresh player's weapons combobox
+            UpdateWeaponListInUI();
+
+            // refresh player's potions combobox
+            UpdatePotionListInUI();
+        }   // end MoveTo()
+
+
+        // update the player's inventory in UI
+        private void UpdateInventoryListInUI()
+        {
+            // set the table in data grid view
             dgvInventory.RowHeadersVisible = false;
-
             dgvInventory.ColumnCount = 2;
             dgvInventory.Columns[0].Name = "Name";
             dgvInventory.Columns[0].Width = 197;
             dgvInventory.Columns[1].Name = "Quantity";
-
             dgvInventory.Rows.Clear();
-
-            foreach(InventoryItem inventoryItem in _player.Inventory)
+            foreach (InventoryItem inventoryItem in _player.Inventory)
             {
+                //find items with quantity of 1 or more
                 if(inventoryItem.Quantity > 0)
                 {
-                    dgvInventory.Rows.Add(new[] { inventoryItem.Details.Name, inventoryItem.Quantity.ToString() });
+                    // add the items as a new array of objects
+                    dgvInventory.Rows.Add(new[] {inventoryItem.Details.Name, inventoryItem.Quantity.ToString()});
                 }
             }
+        }   // end UpdateInventoryInUI()
 
-            // refresh the player's queest list in the UI (in case it has changeed)
+        private void UpdateQuestListInUI()
+        {
+            // set the data grid view table
             dgvQuests.RowHeadersVisible = false;
-
             dgvQuests.ColumnCount = 2;
             dgvQuests.Columns[0].Name = "Name";
             dgvQuests.Columns[0].Width = 197;
             dgvQuests.Columns[1].Name = "Done?";
-
-            dgvQuests.Rows.Clear();
-
-            foreach (PlayerQuest playerQuest in _player.Quests)
+            dgvQuests.Columns.Clear();
+            foreach(PlayerQuest playerQuest in _player.Quests)
             {
+                //create the player's quests as a UI elemnent
                 dgvQuests.Rows.Add(new[] { playerQuest.Details.Name, playerQuest.IsCompleted.ToString() });
             }
+        }   // end UpdateQuestListInUI()
 
-            // refresh cboWeapons combobox in the UI
+        private void UpdateWeaponListInUI()
+        {
+            // create new weapon list
             List<Weapon> weapons = new List<Weapon>();
-
-            foreach (InventoryItem inventoryItem in _player.Inventory)
+            foreach(InventoryItem inventoryItem in _player.Inventory)
             {
-                if (inventoryItem.Details is Weapon)
+                // NOTE: Details is of the Item class
+                if(inventoryItem.Details is Weapon) 
                 {
-                    if(inventoryItem.Quantity > 0)
+                    if (inventoryItem.Quantity > 0)
                     {
                         weapons.Add((Weapon)inventoryItem.Details);
-                    }    
+                    }
                 }
             }
-
             if(weapons.Count == 0)
             {
-                // player has no wepons, hide the weapon combobox and "use" buttons
+                // player has no weapons, hide the weapon cmbobox nad "use" button
                 cboWeapons.Visible = false;
                 btnUseWeapon.Visible = false;
             }
@@ -258,40 +268,39 @@ namespace MyAdventureRPG
                 cboWeapons.DataSource = weapons;
                 cboWeapons.DisplayMember = "Name";
                 cboWeapons.ValueMember = "ID";
-
-                // start at iundex 0
                 cboWeapons.SelectedIndex = 0;
             }
+        }   // end UpdateWeaponListInUI()
 
-            // repopulate potions comboboxes (in case the inventory has changed)
-            List<HealingPotion> healingPotions = new List<HealingPotion>();
-
+        private void UpdatePotionListInUI()
+        {
+            List<HealingPotion> potionList = new List<HealingPotion>();
             foreach (InventoryItem inventoryItem in _player.Inventory)
             {
                 if(inventoryItem.Details is HealingPotion)
                 {
                     if(inventoryItem.Quantity > 0)
                     {
-                        healingPotions.Add((HealingPotion)inventoryItem.Details);
+                        // NOTE: Details is of the Item class
+                        potionList.Add((HealingPotion)inventoryItem.Details);
                     }
                 }
             }
-
-            if(healingPotions.Count == 0)
+            if(potionList.Count == 0)
             {
-                // player has no more helaing potions, hide teh combobox and "use" button
+                // player has no potions, hide the potion combobox and "use" btn
                 cboPotions.Visible = false;
                 btnUsePotion.Visible = false;
             }
             else
             {
-                cboPotions.DataSource = healingPotions;
+                // add potions to UI
+                cboPotions.DataSource = potionList;
                 cboPotions.DisplayMember = "Name";
                 cboPotions.ValueMember = "ID";
-
                 cboPotions.SelectedIndex = 0;
             }
-        }   // end MoveTo()
+        }   // end UpdatePotionsListInUI()
 
         // button use weapon
         private void btnUseWeapon_Click(object sender, EventArgs e)
