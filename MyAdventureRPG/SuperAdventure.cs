@@ -111,39 +111,6 @@ namespace MyAdventureRPG
                         // (else) check if player havs items to complee this quest
                         bool playerHasAllItemsToCompleteQuest = _player.HasAllQuestCompletionItems(destination.QuestAvailableHere);
 
-                        foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
-                        {
-                            bool foundItemInPlayersInventory = false;
-
-                            // check all inventory items to see if they have it and enought quantity
-                            foreach (InventoryItem ii in _player.Inventory)
-                            {
-                                // check for item ID in player's inventory
-                                if(ii.Details.ID == qci.Details.ID)
-                                {
-                                    foundItemInPlayersInventory = true;
-
-                                    if(ii.Quantity < qci.Quantity)
-                                    {
-                                        // player does not have enough of this item to complete the quest
-                                        playerHasAllItemsToCompleteQuest = false;
-
-                                        // no need to continue checking for other questitems
-                                        break;
-                                    }
-                                    // item found, do not check the rest of player's inventory
-                                    break;
-                                }
-                            }
-                            // if item not found, set our var and stop looking for other items
-                            if(!foundItemInPlayersInventory)
-                            {
-                                // player does not have this item in inventory
-                                playerHasAllItemsToCompleteQuest = false;
-                                // no need to continue to searhc for other quest completion items
-                                break;
-                            }
-                        }
                         // player has all items to complete the qest
                         if (playerHasAllItemsToCompleteQuest)
                         {
@@ -152,18 +119,7 @@ namespace MyAdventureRPG
                             rtbMessages.Text += Environment.NewLine;
                             rtbMessages.Text += "You coimplete the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
 
-                            // remove quest completion items from inventory
-                            foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
-                            {
-                                foreach(InventoryItem ii in _player.Inventory)
-                                {
-                                    if(ii.Details.ID == qci.Details.ID)
-                                    {
-                                        ii.Quantity -= qci.Quantity;
-                                        break;
-                                    }
-                                }
-                            }
+                            _player.RemoveQuestCompletionItems(destination.QuestAvailableHere);
 
                             // give quest rewareds
                             rtbMessages.Text += "You receive: " + Environment.NewLine;
@@ -176,39 +132,11 @@ namespace MyAdventureRPG
                             _player.Gold += destination.QuestAvailableHere.RewardGold;
 
                             // add the reward item to the player's inventory
-                            bool addedItemToPlayerInventory = false;
-
-                            foreach (InventoryItem ii in _player.Inventory)
-                            {
-                                // check for existence of this item in inventory
-                                if(ii.Details.ID == destination.QuestAvailableHere.RewardItem.ID)
-                                {
-                                    // player already has item, increase the quantity
-                                    ii.Quantity++;
-
-                                    addedItemToPlayerInventory = true;
-
-                                    break;
-                                }
-                            }
-
-                            // player does not have the item, add it to their inventory
-                            if (!addedItemToPlayerInventory)
-                            {
-                                _player.Inventory.Add(new InventoryItem(destination.QuestAvailableHere.RewardItem, 1));
-                            }
+                            _player.AddItemToInventory(destination.QuestAvailableHere.RewardItem);
 
                             // mark player's quest as completed
                             // find the quest in the play'ers quest list
-                            foreach (PlayerQuest pq in _player.Quests)
-                            {
-                                if(pq.Details.ID == destination.QuestAvailableHere.ID)
-                                {
-                                    pq.IsCompleted = true;
-
-                                    break;
-                                }
-                            }
+                            _player.MarkQuestCompleted(destination.QuestAvailableHere);
                         }
 
                     }
