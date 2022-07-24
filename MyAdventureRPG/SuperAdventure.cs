@@ -367,6 +367,28 @@ namespace MyAdventureRPG
             // Add healing amount to player's CurrentHitPoints
 
                 // CurrentHitPoints cannot exceed player's MaximumHitPoints
+
+            // remove the potion from the player's inventory
+
+            // display message 
+
+            // boss gets their turn to attack
+
+                // determine the amount of damage the boss does to the player
+
+                // display message 
+
+                // subtract damage from the player's CurrentHitPoints
+
+                    // refresh player data in UI
+
+                // if player is dead (0 opints)
+
+                    // display message
+
+                    // move player to Home location
+
+                // refresh player data in UI
         }
     }
 }
