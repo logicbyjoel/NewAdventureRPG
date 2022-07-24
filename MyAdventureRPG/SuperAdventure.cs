@@ -305,12 +305,68 @@ namespace MyAdventureRPG
         // button use weapon
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
+            // Get the currently selected weapon from the cboweapons comboBox
+
+            // Dtermine amount of damage the player does to teh boss
+
+            // aply the damage to the boss' CurrentHitPoints
+
+            // display message
+
+            // check if the boss is dead (0 points remaining)
+
+                // display a victory message
+
+                // give player xp points for killing the boss
+
+                    // display message
+
+                // give teh player gold for kiling the boss
+
+                    // display message
+
+                // get loot items from the boss
+
+                    // display message for each loot item
+
+                    // add item to player's inventory
+
+                // refresh player data on UI
+
+                    // gold and experience opints
+
+                    // inventory list and ComboBoxes
+
+                // move playre to current location
+
+                    // this will heal the player and create a new boss
+
+                // if the boss is still alive
+
+                    // determine the amount of damage the boss does to the player
+
+                    // display message
+
+                    // subtract the damage from player's CurrentHitPoints
+                    
+                        // refresh player data in UI
+
+                    // if player is dead (0 hit points remaining)
+
+                        // display message
+
+                        // move player to "home" location
+
 
         }
         // button use potion
         private void btnUsePotion_Click(object sender, EventArgs e)
         {
+            //Get currently selected potion from cboPotions ComboBox
 
+            // Add healing amount to player's CurrentHitPoints
+
+                // CurrentHitPoints cannot exceed player's MaximumHitPoints
         }
     }
 }
