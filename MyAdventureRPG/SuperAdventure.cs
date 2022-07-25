@@ -230,11 +230,14 @@ namespace MyAdventureRPG
         {
             // set the data grid view table
             dgvQuests.RowHeadersVisible = false;
+
             dgvQuests.ColumnCount = 2;
             dgvQuests.Columns[0].Name = "Name";
             dgvQuests.Columns[0].Width = 197;
             dgvQuests.Columns[1].Name = "Done?";
-            dgvQuests.Columns.Clear();
+
+            dgvQuests.Rows.Clear();
+
             foreach(PlayerQuest playerQuest in _player.Quests)
             {
                 //create the player's quests as a UI elemnent
@@ -306,7 +309,10 @@ namespace MyAdventureRPG
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
             // Get the currently selected weapon from the cboweapons comboBox
+            int selectedIndex = cboWeapons.SelectedIndex;
+            Object selectedItem = cboWeapons.SelectedItem;
 
+            MessageBox.Show("selected item text: " + selectedItem.ToString() + "\n" + "index: " + selectedIndex.ToString());
             // Dtermine amount of damage the player does to teh boss
 
             // aply the damage to the boss' CurrentHitPoints
