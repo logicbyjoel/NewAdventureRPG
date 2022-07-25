@@ -26,3 +26,17 @@ D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.
 D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.CopyComplete
 D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.exe
 D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.pdb
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\bin\Debug\MyAdventureRPG.exe.config
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\bin\Debug\MyAdventureRPG.exe
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\bin\Debug\MyAdventureRPG.pdb
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\bin\Debug\Engine.dll
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\bin\Debug\Engine.pdb
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.AssemblyReference.cache
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.SuggestedBindingRedirects.cache
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\SuperAdventure.Properties.Resources.resources
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.SuperAdventure.resources
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.GenerateResource.cache
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.CoreCompileInputs.cache
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.csproj.CopyComplete
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.exe
+C:\Users\joel.godinez\OneDrive - Harris County\Documents\GitHub\NewAdventureRPG\MyAdventureRPG\obj\Debug\MyAdventureRPG.pdb

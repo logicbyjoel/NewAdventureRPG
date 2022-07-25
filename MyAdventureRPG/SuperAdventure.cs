@@ -192,7 +192,7 @@ namespace MyAdventureRPG
                 btnUseWeapon.Visible = false;
             }
             // refresh player's inventory list
-        UpdateInventoryListInUI();
+            UpdateInventoryListInUI();
 
             // refresh player's quest list
             UpdateQuestListInUI();
@@ -320,48 +320,68 @@ namespace MyAdventureRPG
             // display message
             rtbMessages.Text += "you hit the " + _currentBoss.Name + " for " + damageToBoss.ToString() + " points . " + Environment.NewLine;
             // check if the boss is dead (0 points remaining)
-
+            if(_currentBoss.CurrentHitPoints <= 0)
+            {
                 // display a victory message
-
+                rtbMessages.Text += "boss is down! Well done!!" + Environment.NewLine;
                 // give player xp points for killing the boss
-
-                    // display message
-
+                _player.ExperiencePoints += _currentBoss.RewardExperiencePoints;
+                // display message
+                rtbMessages.Text += " you gained " + _currentBoss.RewardExperiencePoints.ToString() + " XP points!" + Environment.NewLine;
                 // give teh player gold for kiling the boss
-
-                    // display message
-
+                _player.Gold += _currentBoss.RewardGold;
+                // display message
+                rtbMessages.Text += "And you earned " + _currentBoss.RewardGold.ToString() + " pieces of gold!" + Environment.NewLine + Environment.NewLine;
                 // get loot items from the boss
-
-                    // display message for each loot item
-
+                // display message for each loot item
+                foreach (LootItem lootItem in _currentBoss.LootTable)
+                {
                     // add item to player's inventory
+                   // _player.Inventory.Add;
+                }
 
-                // refresh player data on UI
+            }
 
-                    // gold and experience opints
 
-                    // inventory list and ComboBoxes
 
-                // move playre to current location
 
-                    // this will heal the player and create a new boss
 
-                // if the boss is still alive
 
-                    // determine the amount of damage the boss does to the player
 
-                    // display message
 
-                    // subtract the damage from player's CurrentHitPoints
-                    
-                        // refresh player data in UI
+            // refresh player data on UI
 
-                    // if player is dead (0 hit points remaining)
+            // gold and experience opints
 
-                        // display message
+            // inventory list and ComboBoxes
 
-                        // move player to "home" location
+            // move playre to current location
+
+            // this will heal the player and create a new boss
+
+            // if the boss is still alive
+            else
+            {
+                // determine the amount of damage the boss does to the player
+                int damageToPlayer = RandomNumberGenerator.NumberBetween(currentWeapon.MinimumDamage, currentWeapon.MaximumDamage);
+                // display message
+                rtbMessages.Text += "oh " + _currentBoss.Name + " has hit you for " + damageToPlayer.ToString() + " points!" + Environment.NewLine;
+                // subtract the damage from player's CurrentHitPoints
+
+                // refresh player data in UI
+            }
+
+
+
+            // if player is dead (0 hit points remaining)
+            if(_player.CurrentHitPoints <= 0)
+            {
+                // display message
+                rtbMessages.Text += "OH NO! You are done for! Better luck next time..." + Environment.NewLine;
+                // move player to "home" location
+                MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+            }
+
 
 
         }
