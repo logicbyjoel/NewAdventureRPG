@@ -309,16 +309,16 @@ namespace MyAdventureRPG
         private void btnUseWeapon_Click(object sender, EventArgs e)
         {
             // Get the currently selected weapon from the cboweapons comboBox
-            int selectedIndex = cboWeapons.SelectedIndex;
-            Object selectedItem = cboWeapons.SelectedItem;
+            /*            int selectedIndex = cboWeapons.SelectedIndex;
+                        Object selectedItem = cboWeapons.SelectedItem;*/
+            Weapon currentWeapon = (Weapon)cboWeapons.SelectedItem;
 
-            MessageBox.Show("selected item text: " + selectedItem.ToString() + "\n" + "index: " + selectedIndex.ToString());
             // Dtermine amount of damage the player does to teh boss
-
+            int damageToBoss = RandomNumberGenerator.NumberBetween(currentWeapon.MinimumDamage, currentWeapon.MaximumDamage);
             // aply the damage to the boss' CurrentHitPoints
-
+            _currentBoss.CurrentHitPoints -= damageToBoss;
             // display message
-
+            rtbMessages.Text += "you hit the " + _currentBoss.Name + " for " + damageToBoss.ToString() + " points . " + Environment.NewLine;
             // check if the boss is dead (0 points remaining)
 
                 // display a victory message
