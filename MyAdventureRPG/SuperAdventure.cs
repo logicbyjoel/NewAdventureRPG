@@ -14,7 +14,8 @@ namespace MyAdventureRPG
     public partial class SuperAdventure : Form
     {
         // create global player variable (class level) ..keep? 
-        private Player _player;        // create global boss variable (class level)
+        private Player _player;
+        // create global boss variable (class level)
         private Boss _currentBoss;
         public SuperAdventure()
         {
@@ -341,22 +342,39 @@ namespace MyAdventureRPG
                 {
                     if(RandomNumberGenerator.NumberBetween(1, 100) <= lootItem.DropPercentage)
                     {
-                        // add item to player's inventory
+                        // add item to lootedItems list (as a InventoryItem) which will be then added to player's inventory
                         lootedItems.Add(new InventoryItem(lootItem.Details, 1));
-
+                        rtbMessages.Text += lootItem.Details.Name + " has been looted!" + Environment.NewLine;
                     }
                 }
-                   
-                
+                // if no items were randomly selected, then add the default loot item(s)
+                if(lootedItems.Count == 0)
+                {
+                    foreach (LootItem lootItem in _currentBoss.LootTable)
+                    {
+                        if (lootItem.IsDefaultItem)
+                        {
+                            lootedItems.Add(new InventoryItem(lootItem.Details, 1));
+                        }
+                    }
+                }
+                // add the looted items to the player's inventory
+                foreach (InventoryItem inventoryItem in lootedItems)
+                {
+                    _player.AddItemToInventory(inventoryItem.Details);
+                    if(inventoryItem.Quantity == 1)
+                    {
+                        rtbMessages.Text += "You loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.Name + Environment.NewLine;
+                    }
+                    else
+                    {
+                        rtbMessages.Text += "you Loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
+                    }
+                }
 
             }
 
-
-
-
-
-
-
+            
 
             // refresh player data on UI
 
