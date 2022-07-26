@@ -332,13 +332,22 @@ namespace MyAdventureRPG
                 _player.Gold += _currentBoss.RewardGold;
                 // display message
                 rtbMessages.Text += "And you earned " + _currentBoss.RewardGold.ToString() + " pieces of gold!" + Environment.NewLine + Environment.NewLine;
-                // get loot items from the boss
-                // display message for each loot item
+                // get random loot items from the boss
+                List<InventoryItem> lootedItems = new List<InventoryItem>();
+
+                // display message for each loot item as it is added to the looted items list
+                // NOTE: need to compare a random number to the drop percentage 
                 foreach (LootItem lootItem in _currentBoss.LootTable)
                 {
-                    // add item to player's inventory
-                   // _player.Inventory.Add;
+                    if(RandomNumberGenerator.NumberBetween(1, 100) <= lootItem.DropPercentage)
+                    {
+                        // add item to player's inventory
+                        lootedItems.Add(new InventoryItem(lootItem.Details, 1));
+
+                    }
                 }
+                   
+                
 
             }
 
