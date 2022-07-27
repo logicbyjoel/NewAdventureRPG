@@ -371,20 +371,23 @@ namespace MyAdventureRPG
                         rtbMessages.Text += "you Loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
                     }
                 }
-
-            }
-
+                // refresh player data on UI
+                // gold and experience opints
+                /*            lblExperience.Refresh();
+                                lblGold.Refresh();
+                                lblHitPoints.Refresh();*/
+                lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+                lblGold.Text = _player.Gold.ToString();
+                lblExperience.Text = _player.ExperiencePoints.ToString();
+                lblLevel.Text = _player.Level.ToString();
+                UpdateInventoryListInUI();
+                UpdateWeaponListInUI();
+                UpdatePotionListInUI(); 
             
-
-            // refresh player data on UI
-
-            // gold and experience opints
-
-            // inventory list and ComboBoxes
-
             // move playre to current location
-
             // this will heal the player and create a new boss
+            MoveTo(_player.CurrentLocation);
+            }
 
             // if the boss is still alive
             else
@@ -394,19 +397,17 @@ namespace MyAdventureRPG
                 // display message
                 rtbMessages.Text += "oh " + _currentBoss.Name + " has hit you for " + damageToPlayer.ToString() + " points!" + Environment.NewLine;
                 // subtract the damage from player's CurrentHitPoints
-
+                _player.CurrentHitPoints -= damageToPlayer;
                 // refresh player data in UI
-            }
-
-
-
-            // if player is dead (0 hit points remaining)
-            if(_player.CurrentHitPoints <= 0)
-            {
-                // display message
-                rtbMessages.Text += "OH NO! You are done for! Better luck next time..." + Environment.NewLine;
-                // move player to "home" location
-                MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+                lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+                // if player is dead (0 hit points remaining)
+                if(_player.CurrentHitPoints <= 0)
+                {
+                    // display message
+                    rtbMessages.Text += "OH NO! You are done for! Better luck next time..." + Environment.NewLine;
+                    // move player to "home" location
+                    MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+                }
             }
 
 
