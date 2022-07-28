@@ -63,7 +63,7 @@ namespace MyAdventureRPG
             if (!_player.HasRequiredItemToEnterThisLocation(destination))
             {
                     // show message
-                    rtbMessages.Text += "You must have a " + destination.ItemRequiredToEnter.Name + " to enter this loaciton." + Environment.NewLine;
+                    rtbMessages.Text += "You must have a " + destination.ItemRequiredToEnter.Name + " to enter this location." + Environment.NewLine;
                     // do not allow player to enter (stop processing this move and exit function)
                     return;
             }
@@ -79,7 +79,7 @@ namespace MyAdventureRPG
 
             // show location name and description
             rtbLocation.Text = destination.Name + Environment.NewLine;
-            rtbLocation.Text = destination.Description +Environment.NewLine;
+            rtbLocation.Text = destination.Description + Environment.NewLine;
 
             // refill player's health (assume player healed/rested during move)
             _player.CurrentHitPoints = _player.MaximumHitPoints;
@@ -204,7 +204,6 @@ namespace MyAdventureRPG
             // refresh player's potions combobox
             UpdatePotionListInUI();
         }   // end MoveTo()
-
 
         // update the player's inventory in UI
         private void UpdateInventoryListInUI()
@@ -417,13 +416,23 @@ namespace MyAdventureRPG
         private void btnUsePotion_Click(object sender, EventArgs e)
         {
             //Get currently selected potion from cboPotions ComboBox
-
+            HealingPotion currentPotion = (HealingPotion)cboPotions.SelectedItem;
             // Add healing amount to player's CurrentHitPoints
-
+            int tempHitPoints = _player.CurrentHitPoints + currentPotion.AmountToHeal;
+           // _player.CurrentHitPoints += currentPotion.AmountToHeal;
                 // CurrentHitPoints cannot exceed player's MaximumHitPoints
-
+                if(tempHitPoints > _player.MaximumHitPoints)
+                {
+                _player.CurrentHitPoints = _player.MaximumHitPoints;
+                }
             // remove the potion from the player's inventory
-
+            foreach (InventoryItem inventoryItem in _player.Inventory)
+            {
+                if(inventoryItem.Details.ID == currentPotion.ID)
+                {
+                    _player.Inventory.Remove(inventoryItem);
+                }
+            }
             // display message 
 
             // boss gets their turn to attack
