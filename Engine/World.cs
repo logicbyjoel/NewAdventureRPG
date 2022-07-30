@@ -123,7 +123,7 @@ namespace Engine
             // create each location
             Location home = new Location(LOCATION_ID_HOME, "Home", "Your house. You really need to clean up the place.");
 
-            Location townSquare = new Location(LOCATION_ID_TOWN_SQUARE, "Town square", "You see a fountaion.");
+            Location townSquare = new Location(LOCATION_ID_TOWN_SQUARE, "Town square", "You see a fountain.");
 
             // NOTE: we are storing instantiated objects in properties using ItemByID()
             Location guardPost = new Location(LOCATION_ID_GUARD_POST, "Guard post", "There is a large, tough-looking guard here.", ItemByID(ITEM_ID_ADVENTURER_PASS));
@@ -233,6 +233,5 @@ namespace Engine
             }
             return null;
         }   // end LocationByID()
-
     }
 }

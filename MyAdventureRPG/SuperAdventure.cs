@@ -110,13 +110,13 @@ namespace MyAdventureRPG
                         {
                             // complete the questl; display message
                             rtbMessages.Text += Environment.NewLine;
-                            rtbMessages.Text += "You coimplete the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
+                            rtbMessages.Text += "You complete the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
 
                             _player.RemoveQuestCompletionItems(destination.QuestAvailableHere);
 
                             // give quest rewareds
                             rtbMessages.Text += "You receive: " + Environment.NewLine;
-                            rtbMessages.Text += destination.QuestAvailableHere.RewarExperiencePoints.ToString() + "experience points "+ Environment.NewLine;
+                            rtbMessages.Text += destination.QuestAvailableHere.RewarExperiencePoints.ToString() + "experience points." + Environment.NewLine;
                             rtbMessages.Text += destination.QuestAvailableHere.RewardGold.ToString() + " gold" + Environment.NewLine;
                             rtbMessages.Text += destination.QuestAvailableHere.RewardItem.Name + Environment.NewLine;
                             rtbMessages.Text += Environment.NewLine;
@@ -318,12 +318,12 @@ namespace MyAdventureRPG
             // aply the damage to the boss' CurrentHitPoints
             _currentBoss.CurrentHitPoints -= damageToBoss;
             // display message
-            rtbMessages.Text += "you hit the " + _currentBoss.Name + " for " + damageToBoss.ToString() + " points . " + Environment.NewLine;
+            rtbMessages.Text += "You hit the " + _currentBoss.Name + " for " + damageToBoss.ToString() + " points . " + Environment.NewLine;
             // check if the boss is dead (0 points remaining)
             if(_currentBoss.CurrentHitPoints <= 0)
             {
                 // display a victory message
-                rtbMessages.Text += "boss is down! Well done!!" + Environment.NewLine;
+                rtbMessages.Text += "The " + _currentBoss.Name + " is down! Well done!" + Environment.NewLine;
                 // give player xp points for killing the boss
                 _player.ExperiencePoints += _currentBoss.RewardExperiencePoints;
                 // display message
@@ -394,7 +394,7 @@ namespace MyAdventureRPG
                 // determine the amount of damage the boss does to the player
                 int damageToPlayer = RandomNumberGenerator.NumberBetween(currentWeapon.MinimumDamage, currentWeapon.MaximumDamage);
                 // display message
-                rtbMessages.Text += "oh " + _currentBoss.Name + " has hit you for " + damageToPlayer.ToString() + " points!" + Environment.NewLine;
+                rtbMessages.Text += "OH " + _currentBoss.Name + " has hit you for " + damageToPlayer.ToString() + " points!" + Environment.NewLine;
                 // subtract the damage from player's CurrentHitPoints
                 _player.CurrentHitPoints -= damageToPlayer;
                 // refresh player data in UI
@@ -403,55 +403,60 @@ namespace MyAdventureRPG
                 if(_player.CurrentHitPoints <= 0)
                 {
                     // display message
-                    rtbMessages.Text += "OH NO! You are done for! Better luck next time..." + Environment.NewLine;
+                    rtbMessages.Text += "OH NO! You are done for! Better luck next time..." + Environment.NewLine + Environment.NewLine;
                     // move player to "home" location
                     MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 }
             }
-
-
-
         }
+
         // button use potion
         private void btnUsePotion_Click(object sender, EventArgs e)
         {
             //Get currently selected potion from cboPotions ComboBox
             HealingPotion currentPotion = (HealingPotion)cboPotions.SelectedItem;
-            // Add healing amount to player's CurrentHitPoints
-            int tempHitPoints = _player.CurrentHitPoints + currentPotion.AmountToHeal;
+            // Add healing amount to player's CurrentHitPoint
+            _player.CurrentHitPoints += currentPotion.AmountToHeal;
            // _player.CurrentHitPoints += currentPotion.AmountToHeal;
-                // CurrentHitPoints cannot exceed player's MaximumHitPoints
-                if(tempHitPoints > _player.MaximumHitPoints)
-                {
-                _player.CurrentHitPoints = _player.MaximumHitPoints;
-                }
-            // remove the potion from the player's inventory
-            foreach (InventoryItem inventoryItem in _player.Inventory)
+            // CurrentHitPoints cannot exceed player's MaximumHitPoints
+            if(_player.CurrentHitPoints > _player.MaximumHitPoints)
             {
-                if(inventoryItem.Details.ID == currentPotion.ID)
+                _player.CurrentHitPoints = _player.MaximumHitPoints;
+            }
+            // remove the potion from the player's inventory
+            foreach (InventoryItem ii in _player.Inventory)
+            {
+                if(ii.Details.ID == currentPotion.ID)
                 {
-                    _player.Inventory.Remove(inventoryItem);
+                    ii.Quantity--;
+                    break;
                 }
             }
             // display message 
-
+            rtbMessages.Text += "You used the " + currentPotion.Name + " potion. " + Environment.NewLine;
             // boss gets their turn to attack
+            // determine the amount of damage the boss does to the player
+            int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentBoss.MaximumDamage);
+            // display message 
+            rtbMessages.Text += "The " + _currentBoss.Name + " did " + damageToPlayer.ToString() + " points of damage. " + Environment.NewLine;
+            // subtract damage from the player's CurrentHitPoints
+            _player.CurrentHitPoints -= damageToPlayer;
+            // if player is dead (0 opints)
+            if(_player.CurrentHitPoints < 1)
+            {
+                // display message
+                rtbMessages.Text += "The " + _currentBoss + " killed you." + Environment.NewLine;
+                // move player to Home location
+                MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+            }
 
-                // determine the amount of damage the boss does to the player
-
-                // display message 
-
-                // subtract damage from the player's CurrentHitPoints
-
-                    // refresh player data in UI
-
-                // if player is dead (0 opints)
-
-                    // display message
-
-                    // move player to Home location
-
-                // refresh player data in UI
+            // refresh player data in UI
+            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+            //lblGold.Text = _player.Gold.ToString();
+            //lblExperience.Text = _player.ExperiencePoints.ToString();
+            //lblLevel.Text = _player.Level.ToString();
+            UpdateInventoryListInUI();
+            UpdatePotionListInUI();
         }
     }
 }
