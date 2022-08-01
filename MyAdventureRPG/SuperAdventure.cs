@@ -27,7 +27,8 @@ namespace MyAdventureRPG
             // move to home
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
             _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_RUSTY_SWORD), 1));
-
+            InventoryItem lastItem = (InventoryItem)_player.Inventory.LastOrDefault();
+            rtbMessages.Text += "You have been equipped with a " + lastItem.Details.Name;
             // output Player stats on labels   
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             lblGold.Text = _player.Gold.ToString();
@@ -110,13 +111,13 @@ namespace MyAdventureRPG
                         {
                             // complete the questl; display message
                             rtbMessages.Text += Environment.NewLine;
-                            rtbMessages.Text += "You complete the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
+                            rtbMessages.Text += "You completed the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
 
                             _player.RemoveQuestCompletionItems(destination.QuestAvailableHere);
 
                             // give quest rewareds
                             rtbMessages.Text += "You receive: " + Environment.NewLine;
-                            rtbMessages.Text += destination.QuestAvailableHere.RewarExperiencePoints.ToString() + "experience points." + Environment.NewLine;
+                            rtbMessages.Text += destination.QuestAvailableHere.RewarExperiencePoints.ToString() + " experience points." + Environment.NewLine;
                             rtbMessages.Text += destination.QuestAvailableHere.RewardGold.ToString() + " gold" + Environment.NewLine;
                             rtbMessages.Text += destination.QuestAvailableHere.RewardItem.Name + Environment.NewLine;
                             rtbMessages.Text += Environment.NewLine;
@@ -139,7 +140,7 @@ namespace MyAdventureRPG
                 else
                 {
                     // show messages (singular or plural forms of items)
-                    rtbMessages.Text += "you receive the " + destination.QuestAvailableHere.Name + " quest." + Environment.NewLine;
+                    rtbMessages.Text += "You receive the " + destination.QuestAvailableHere.Name + " quest." + Environment.NewLine;
                     rtbMessages.Text += destination.QuestAvailableHere.Description + Environment.NewLine;
                     rtbMessages.Text += "To complete it, return with: " + Environment.NewLine;
                     foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
@@ -327,7 +328,7 @@ namespace MyAdventureRPG
                 // give player xp points for killing the boss
                 _player.ExperiencePoints += _currentBoss.RewardExperiencePoints;
                 // display message
-                rtbMessages.Text += " you gained " + _currentBoss.RewardExperiencePoints.ToString() + " XP points!" + Environment.NewLine;
+                rtbMessages.Text += "You gained " + _currentBoss.RewardExperiencePoints.ToString() + " XP points!" + Environment.NewLine;
                 // give teh player gold for kiling the boss
                 _player.Gold += _currentBoss.RewardGold;
                 // display message
@@ -367,7 +368,7 @@ namespace MyAdventureRPG
                     }
                     else
                     {
-                        rtbMessages.Text += "you Loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
+                        rtbMessages.Text += "You Loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
                     }
                 }
                 // refresh player data on UI
