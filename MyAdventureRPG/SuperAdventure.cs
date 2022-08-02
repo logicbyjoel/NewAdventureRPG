@@ -1,4 +1,49 @@
-﻿using System;
+﻿/**************************************    SuperAdventure.cs    *****************************************
+ * 
+ * Programmer: jOel Godinez
+ * 
+ * Date: 20 July 2022
+ * 
+ * Environment: WinForms in Windows 10
+ * 
+ * Files Included: Program.cs; Engine includes: Boss.cs, HealingPotion.cs, InventoryItem.cs, Item.cs, LIvingCreature.cs, Location.cs, LootItem.cs, Player.cs, PlayerQuest.cs, Quest.cs, QuestCompletionItem.cs, RandomNumberGenerator.cs, Weapon.cs, World.cs
+ * 
+ * Purpose: drivet the main game logic
+ * 
+ * Input: called by Program.cs and SuperAdventure.Designer.cs files
+ * 
+ * Preconditions/Assumptions: class will be called by Program.cs, 
+ * 
+ * 
+ * Output: inform user/player throughout gameplay via the rich text box, send destination object to MoveTo function for player navigation  
+ * 
+ * Postconditions: destination object sent must be of Location class 
+ * 
+ * Algorithm:
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * Estimates:        Actuals:
+ * Design: 2 hours
+ * Implementation: 4hours
+ * Testing: 2 hours
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
