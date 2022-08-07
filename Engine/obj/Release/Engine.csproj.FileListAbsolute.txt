@@ -1,0 +1,6 @@
+D:\repos\github-desktop\NewAdventureRPG\Engine\bin\Release\Engine.dll
+D:\repos\github-desktop\NewAdventureRPG\Engine\bin\Release\Engine.pdb
+D:\repos\github-desktop\NewAdventureRPG\Engine\obj\Release\Engine.csproj.AssemblyReference.cache
+D:\repos\github-desktop\NewAdventureRPG\Engine\obj\Release\Engine.csproj.CoreCompileInputs.cache
+D:\repos\github-desktop\NewAdventureRPG\Engine\obj\Release\Engine.dll
+D:\repos\github-desktop\NewAdventureRPG\Engine\obj\Release\Engine.pdb

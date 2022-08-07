@@ -1,0 +1,14 @@
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\bin\Release\MyAdventureRPG.exe.config
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\bin\Release\MyAdventureRPG.exe
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\bin\Release\MyAdventureRPG.pdb
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\bin\Release\Engine.dll
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\bin\Release\Engine.pdb
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.csproj.AssemblyReference.cache
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.csproj.SuggestedBindingRedirects.cache
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\SuperAdventure.Properties.Resources.resources
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.SuperAdventure.resources
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.csproj.GenerateResource.cache
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.csproj.CoreCompileInputs.cache
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.csproj.CopyComplete
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.exe
+D:\repos\github-desktop\NewAdventureRPG\MyAdventureRPG\obj\Release\MyAdventureRPG.pdb

@@ -74,6 +74,8 @@ namespace MyAdventureRPG
             _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_RUSTY_SWORD), 1));
             InventoryItem lastItem = (InventoryItem)_player.Inventory.LastOrDefault();
             rtbMessages.Text += "You have been equipped with a " + lastItem.Details.Name;
+            ScrollToBottomOfMessages();
+
             // output Player stats on labels   
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             lblGold.Text = _player.Gold.ToString();
@@ -108,10 +110,11 @@ namespace MyAdventureRPG
             // check if this location requires an item to enter
             if (!_player.HasRequiredItemToEnterThisLocation(destination))
             {
-                    // show message
-                    rtbMessages.Text += "You must have a " + destination.ItemRequiredToEnter.Name + " to enter this location." + Environment.NewLine;
-                    // do not allow player to enter (stop processing this move and exit function)
-                    return;
+                // show message
+                rtbMessages.Text += "You must have a " + destination.ItemRequiredToEnter.Name + " to enter this location." + Environment.NewLine;
+                ScrollToBottomOfMessages();
+                // do not allow player to enter (stop processing this move and exit function)
+                return;
             }
 
             // update the player's current location
@@ -157,6 +160,7 @@ namespace MyAdventureRPG
                             // complete the questl; display message
                             rtbMessages.Text += Environment.NewLine;
                             rtbMessages.Text += "You completed the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
+                            ScrollToBottomOfMessages();
 
                             _player.RemoveQuestCompletionItems(destination.QuestAvailableHere);
 
@@ -166,6 +170,7 @@ namespace MyAdventureRPG
                             rtbMessages.Text += destination.QuestAvailableHere.RewardGold.ToString() + " gold" + Environment.NewLine;
                             rtbMessages.Text += destination.QuestAvailableHere.RewardItem.Name + Environment.NewLine;
                             rtbMessages.Text += Environment.NewLine;
+                            ScrollToBottomOfMessages();
 
                             _player.ExperiencePoints += destination.QuestAvailableHere.RewarExperiencePoints;
                             _player.Gold += destination.QuestAvailableHere.RewardGold;
@@ -188,18 +193,22 @@ namespace MyAdventureRPG
                     rtbMessages.Text += "You receive the " + destination.QuestAvailableHere.Name + " quest." + Environment.NewLine;
                     rtbMessages.Text += destination.QuestAvailableHere.Description + Environment.NewLine;
                     rtbMessages.Text += "To complete it, return with: " + Environment.NewLine;
-                    foreach(QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
+                    ScrollToBottomOfMessages();
+                    foreach (QuestCompletionItem qci in destination.QuestAvailableHere.QuestCompletionItems)
                     {
                         if(qci.Quantity == 1)
                         {
                             rtbMessages.Text += qci.Quantity.ToString() + " " + qci.Details.Name + Environment.NewLine;
+                            ScrollToBottomOfMessages();
                         }
                         else
                         {
                             rtbMessages.Text += qci.Quantity.ToString() + " " + qci.Details.NamePlural + Environment.NewLine;
+                            ScrollToBottomOfMessages();
                         }
                     }
                     rtbMessages.Text += Environment.NewLine;
+                    ScrollToBottomOfMessages();
                     // add this quest to  player's quest list
                     _player.Quests.Add(new PlayerQuest(destination.QuestAvailableHere));
                 }
@@ -209,6 +218,7 @@ namespace MyAdventureRPG
             {
                 // if true , diplay mesage of what player sees
                 rtbMessages.Text += "You see a " + destination.BossLivingHere.Name + Environment.NewLine;
+                ScrollToBottomOfMessages();
 
                 // spawn new boss, pertaining to current location, to fight using the standard boss in the world
                 Boss standardBoss = World.BossByID(destination.BossLivingHere.ID);
@@ -365,19 +375,23 @@ namespace MyAdventureRPG
             _currentBoss.CurrentHitPoints -= damageToBoss;
             // display message
             rtbMessages.Text += "You hit the " + _currentBoss.Name + " for " + damageToBoss.ToString() + " points . " + Environment.NewLine;
+            ScrollToBottomOfMessages();
             // check if the boss is dead (0 points remaining)
-            if(_currentBoss.CurrentHitPoints <= 0)
+            if (_currentBoss.CurrentHitPoints < 1)
             {
                 // display a victory message
                 rtbMessages.Text += "The " + _currentBoss.Name + " is down! Well done!" + Environment.NewLine;
                 // give player xp points for killing the boss
                 _player.ExperiencePoints += _currentBoss.RewardExperiencePoints;
+                ScrollToBottomOfMessages();
                 // display message
                 rtbMessages.Text += "You gained " + _currentBoss.RewardExperiencePoints.ToString() + " XP points!" + Environment.NewLine;
+                ScrollToBottomOfMessages();
                 // give teh player gold for kiling the boss
                 _player.Gold += _currentBoss.RewardGold;
                 // display message
                 rtbMessages.Text += "And you earned " + _currentBoss.RewardGold.ToString() + " pieces of gold!" + Environment.NewLine + Environment.NewLine;
+                ScrollToBottomOfMessages();
                 // get random loot items from the boss
                 List<InventoryItem> lootedItems = new List<InventoryItem>();
 
@@ -390,6 +404,7 @@ namespace MyAdventureRPG
                         // add item to lootedItems list (as a InventoryItem) which will be then added to player's inventory
                         lootedItems.Add(new InventoryItem(lootItem.Details, 1));
                         rtbMessages.Text += lootItem.Details.Name + " has been looted!" + Environment.NewLine;
+                        ScrollToBottomOfMessages();
                     }
                 }
                 // if no items were randomly selected, then add the default loot item(s)
@@ -400,6 +415,8 @@ namespace MyAdventureRPG
                         if (lootItem.IsDefaultItem)
                         {
                             lootedItems.Add(new InventoryItem(lootItem.Details, 1));
+                            rtbMessages.Text += lootItem.ToString() + " as DEFAULT " + Environment.NewLine;
+                            ScrollToBottomOfMessages();
                         }
                     }
                 }
@@ -410,10 +427,12 @@ namespace MyAdventureRPG
                     if(inventoryItem.Quantity == 1)
                     {
                         rtbMessages.Text += "You loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.Name + Environment.NewLine;
+                        ScrollToBottomOfMessages();
                     }
                     else
                     {
-                        rtbMessages.Text += "You Loot " + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
+                        rtbMessages.Text += "You looted a total of" + inventoryItem.Quantity.ToString() + " " + inventoryItem.Details.NamePlural + Environment.NewLine;
+                        ScrollToBottomOfMessages();
                     }
                 }
                 // refresh player data on UI
@@ -441,6 +460,7 @@ namespace MyAdventureRPG
                 int damageToPlayer = RandomNumberGenerator.NumberBetween(currentWeapon.MinimumDamage, currentWeapon.MaximumDamage);
                 // display message
                 rtbMessages.Text += "OH " + _currentBoss.Name + " has hit you for " + damageToPlayer.ToString() + " points!" + Environment.NewLine;
+                ScrollToBottomOfMessages();
                 // subtract the damage from player's CurrentHitPoints
                 _player.CurrentHitPoints -= damageToPlayer;
                 // refresh player data in UI
@@ -450,6 +470,7 @@ namespace MyAdventureRPG
                 {
                     // display message
                     rtbMessages.Text += "OH NO! You are done for! Better luck next time..." + Environment.NewLine + Environment.NewLine;
+                    ScrollToBottomOfMessages();
                     // move player to "home" location
                     MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 }
@@ -485,6 +506,7 @@ namespace MyAdventureRPG
             int damageToPlayer = RandomNumberGenerator.NumberBetween(0, _currentBoss.MaximumDamage);
             // display message 
             rtbMessages.Text += "The " + _currentBoss.Name + " did " + damageToPlayer.ToString() + " points of damage. " + Environment.NewLine;
+            ScrollToBottomOfMessages();
             // subtract damage from the player's CurrentHitPoints
             _player.CurrentHitPoints -= damageToPlayer;
             // if player is dead (0 opints)
@@ -492,6 +514,7 @@ namespace MyAdventureRPG
             {
                 // display message
                 rtbMessages.Text += "The " + _currentBoss + " killed you." + Environment.NewLine;
+                ScrollToBottomOfMessages();
                 // move player to Home location
                 MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
             }
@@ -503,6 +526,13 @@ namespace MyAdventureRPG
             //lblLevel.Text = _player.Level.ToString();
             UpdateInventoryListInUI();
             UpdatePotionListInUI();
-        }
+        }   // end btnUsePotion_Click()
+
+        // avoid manually scrolling of text box
+        private void ScrollToBottomOfMessages()
+        {
+            rtbMessages.SelectionStart = rtbMessages.Text.Length;
+            rtbMessages.ScrollToCaret();
+        }   // end ScrollToBottomOfMessages()
     }
 }
