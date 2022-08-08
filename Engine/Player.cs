@@ -14,7 +14,13 @@ namespace Engine
 
         public int Gold { get; set; }
         public int ExperiencePoints { get; set; }
-        public int Level { get; set; }
+        public int Level {
+            // calculate a player's level and start at level 1
+            get
+            {   return ((ExperiencePoints / 100) + 1); }
+            // remove 'set'. This is because we will never put a value into the Level property
+            //set; 
+        }
 
         // prop for updating the player's location at all times
         public Location CurrentLocation { get; set; }

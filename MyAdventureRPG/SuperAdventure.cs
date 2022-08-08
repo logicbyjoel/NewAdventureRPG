@@ -1,6 +1,6 @@
 ﻿/**************************************    SuperAdventure.cs    *****************************************
  * 
- * Programmer: jOel Godinez
+ * Programmer: Joel Godinez
  * 
  * Date: 20 July 2022
  * 
