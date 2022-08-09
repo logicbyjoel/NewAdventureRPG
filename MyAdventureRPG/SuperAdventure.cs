@@ -68,7 +68,7 @@ namespace MyAdventureRPG
 
             // declare Player object, store in class-level variable
             // UPDATE: this instantiation now must meet parameterized construcotr of Player class
-            _player = new Player(10, 10, 20, 0, 1); // keep?
+            _player = new Player(10, 10, 20, 0); // keep?
             // move to home
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
             _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_RUSTY_SWORD), 1));
@@ -77,10 +77,7 @@ namespace MyAdventureRPG
             ScrollToBottomOfMessages();
 
             // output Player stats on labels   
-            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
-            lblGold.Text = _player.Gold.ToString();
-            lblExperience.Text = _player.ExperiencePoints.ToString();
-            lblLevel.Text = _player.Level.ToString();
+            UpdatePlayerStats();
         } // end SuperAdventure constructor
 
         // button for an attempt to move north
@@ -440,10 +437,7 @@ namespace MyAdventureRPG
                 /*            lblExperience.Refresh();
                                 lblGold.Refresh();
                                 lblHitPoints.Refresh();*/
-                lblHitPoints.Text = _player.CurrentHitPoints.ToString();
-                lblGold.Text = _player.Gold.ToString();
-                lblExperience.Text = _player.ExperiencePoints.ToString();
-                lblLevel.Text = _player.Level.ToString();
+                UpdatePlayerStats();
                 UpdateInventoryListInUI();
                 UpdateWeaponListInUI();
                 UpdatePotionListInUI(); 
@@ -534,5 +528,15 @@ namespace MyAdventureRPG
             rtbMessages.SelectionStart = rtbMessages.Text.Length;
             rtbMessages.ScrollToCaret();
         }   // end ScrollToBottomOfMessages()
+
+        // update the player's Level on the game screen after every time the player gains experience
+        private void UpdatePlayerStats()
+        {
+            // refresh player information and inventory controls
+            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
+            lblGold.Text = _player.Gold.ToString();
+            lblExperience.Text = _player.ExperiencePoints.ToString();
+            lblLevel.Text = _player.Level.ToString();
+        }   // end UpdatePlayerStats()
     }
 }

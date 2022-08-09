@@ -19,6 +19,7 @@ namespace Engine
             get
             {   return ((ExperiencePoints / 100) + 1); }
             // remove 'set'. This is because we will never put a value into the Level property
+            // NOTE: removing 'set' makes a property read-only
             //set; 
         }
 
@@ -31,11 +32,12 @@ namespace Engine
         public List<PlayerQuest> Quests { get; set; }
 
         // add param constructor and reference base class props
-        public Player(int currentHitPoints, int maximumHitPoints, int gold, int experiencePoints, int level) : base(currentHitPoints, maximumHitPoints)
+        public Player(int currentHitPoints, int maximumHitPoints, int gold, int experiencePoints) : base(currentHitPoints, maximumHitPoints)
         {
             Gold = gold;
             ExperiencePoints = experiencePoints;
-            Level = level;
+            // remove Level, because we removed the 'set' from this property
+            // Level = level;
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
