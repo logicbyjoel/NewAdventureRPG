@@ -52,32 +52,39 @@ namespace Engine
                 return true;
             }
 
+            // Change: use LINQ to check if the player has the location-specific required item in their inventory
+            // NOTE: Exists() will check the items in specified list, to find any items matching the expression given. 
+            // if the item is found, will return true; false otherwise
+            // NOTE: this is a lambda expression being used
+            return Inventory.Exists(ii => ii.Details.ID == destination.ItemRequiredToEnter.ID);
+
             // check if the player has the required item in their inventory
-            foreach (InventoryItem ii in Inventory)
+/*            foreach (InventoryItem ii in Inventory)
             {
                 if(ii.Details.ID == destination.ItemRequiredToEnter.ID)
                 {
                     // found the requjired item, 
                     return true;
                 }
-            }
+            }*/
 
             // required item not found in inventory
-            return false;
+            /*return false;*/
         }   // end HasRequiredItemToEnterThisLocation()
 
         public bool HasThisQuest(Quest quest)
         {
             // find the quest for this destination
-            foreach (PlayerQuest playerQuest in Quests)
+            return Quests.Exists(pq => pq.Details.ID == quest.ID);
+/*            foreach (PlayerQuest playerQuest in Quests)
             {
                 if(playerQuest.Details.ID == quest.ID)
                 {
                     return true;
                 }
             }
-            return false;
-        }
+            return false;*/
+        }   // end HasThisQuest()
 
         public bool CompletedThisQuest(Quest quest)
         {
