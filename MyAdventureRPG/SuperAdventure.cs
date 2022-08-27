@@ -156,7 +156,7 @@ namespace MyAdventureRPG
                         {
                             // complete the questl; display message
                             rtbMessages.Text += Environment.NewLine;
-                            rtbMessages.Text += "You completed the " + destination.QuestAvailableHere.Name + "quest. " + Environment.NewLine;
+                            rtbMessages.Text += "You completed the " + destination.QuestAvailableHere.Name + " quest. " + Environment.NewLine;
                             ScrollToBottomOfMessages();
 
                             _player.RemoveQuestCompletionItems(destination.QuestAvailableHere);
@@ -293,7 +293,7 @@ namespace MyAdventureRPG
 
             foreach(PlayerQuest playerQuest in _player.Quests)
             {
-                //create the player's quests as a UI elemnent
+                // create the player's quests as a UI elemnent
                 dgvQuests.Rows.Add(new[] { playerQuest.Details.Name, playerQuest.IsCompleted.ToString() });
             }
         }   // end UpdateQuestListInUI()
@@ -469,7 +469,7 @@ namespace MyAdventureRPG
                     MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
                 }
             }
-        }
+        }   // end btnUseWeapon_Click()
 
         // button use potion
         private void btnUsePotion_Click(object sender, EventArgs e)

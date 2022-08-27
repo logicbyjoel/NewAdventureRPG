@@ -11,7 +11,6 @@ namespace Engine
     {
         // declare Player properties 
         // NOTE: public properties use Pascal casing
-
         public int Gold { get; set; }
         public int ExperiencePoints { get; set; }
         public int Level {
@@ -58,32 +57,14 @@ namespace Engine
             // NOTE: this is a lambda expression being used
             return Inventory.Exists(ii => ii.Details.ID == destination.ItemRequiredToEnter.ID);
 
-            // check if the player has the required item in their inventory
-/*            foreach (InventoryItem ii in Inventory)
-            {
-                if(ii.Details.ID == destination.ItemRequiredToEnter.ID)
-                {
-                    // found the requjired item, 
-                    return true;
-                }
-            }*/
 
-            // required item not found in inventory
-            /*return false;*/
         }   // end HasRequiredItemToEnterThisLocation()
 
         public bool HasThisQuest(Quest quest)
         {
             // find the quest for this destination
             return Quests.Exists(pq => pq.Details.ID == quest.ID);
-/*            foreach (PlayerQuest playerQuest in Quests)
-            {
-                if(playerQuest.Details.ID == quest.ID)
-                {
-                    return true;
-                }
-            }
-            return false;*/
+
         }   // end HasThisQuest()
 
         public bool CompletedThisQuest(Quest quest)
@@ -176,7 +157,6 @@ namespace Engine
                 if(playerQuest.Details.ID == quest.ID)
                 {
                     playerQuest.IsCompleted = true;
-
                     return; // we found teh quest, and marked it as complet. exit the function
                 }
             }

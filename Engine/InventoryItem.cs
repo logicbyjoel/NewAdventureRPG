@@ -9,7 +9,6 @@ namespace Engine
     // Purpose of this class: utilize it as a list property on Player, Boss, and Quest
     public class InventoryItem
     {
-
         // add InvneotryItem constructor
         public InventoryItem(Item details, int quantity)
         {
@@ -19,7 +18,6 @@ namespace Engine
         // add InventoryItem props
         public Item Details { get; set; }
         public int Quantity { get; set; }
-
 
     }
 }
