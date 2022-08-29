@@ -64,7 +64,6 @@ namespace Engine
         {
             // find the quest for this destination
             return Quests.Exists(pq => pq.Details.ID == quest.ID);
-
         }   // end HasThisQuest()
 
         public bool CompletedThisQuest(Quest quest)
@@ -88,10 +87,11 @@ namespace Engine
             foreach (QuestCompletionItem qci in quest.QuestCompletionItems)
             {
                 // assume item will not be found
-                bool foundItemInPlayersInventory = false;
+                //bool foundItemInPlayersInventory = false;
 
                 // check each item in player's inv, to see if they have it, and the minimum quanity
-                foreach (InventoryItem ii in Inventory)
+                // refactor using LINQ
+                /*foreach (InventoryItem ii in Inventory)
                 {
                     if(ii.Details.ID == qci.Details.ID) // player has the item in inventory
                     {
@@ -102,13 +102,17 @@ namespace Engine
                             return false;
                         }
                     }
-                }
+                }*/
 
-                // player does not have any of this quest completion items in their inventory
-                if (!foundItemInPlayersInventory)
+                if(!Inventory.Exists(ii => ii.Details.ID == qci.Details.ID && ii.Quantity >= qci.Quantity))
                 {
                     return false;
                 }
+                // player does not have any of this quest completion items in their inventory
+                /* if (!foundItemInPlayersInventory)
+                {
+                    return false;
+                }*/
             }
 
             // if we made it here, the player must hnave all the required items, and enough of them, to complete the quest
