@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;   // work with collections
 using System.Linq;
+using System.Xml;   // work with XML functions
 using System.Text;
 using System.Threading.Tasks;
 
@@ -185,5 +186,37 @@ namespace Engine
                 }
             }*/
         }   // end MarkQuestCompleted()
+
+        public string ToXmlString()
+        {
+            XmlDocument playerData = new XmlDocument();
+            // create the top-level XML node
+            XmlNode player = playerData.CreateElement("Player");
+            playerData.AppendChild(player);
+            // create the 'stats' child node to hold the other player statistics nodes
+            XmlNode stats = playerData.CreateElement("Stats");
+            player.AppendChild(stats);
+            // create the child nodes for the "Stats" node
+            XmlNode currentHitPoints = playerData.CreateElement("CurrentHitPoints");
+
+            currentHitPoints.AppendChild(playerData.CreateTextNode(this.CurrentHitPoints.ToString()));
+            stats.AppendChild(currentHitPoints);
+            XmlNode maximumHitPoints = playerData.CreateElement("MaximumHitPoints");
+
+            maximumHitPoints.AppendChild(playerData.CreateTextNode(this.MaximumHitPoints.ToString()));
+            
+            stats.AppendChild(maximumHitPoints);
+            XmlNode gold = playerData.CreateElement("Gold");
+            gold.AppendChild(playerData.CreateTextNode(this.Gold.ToString()));
+            stats.AppendChild(gold);
+            XmlNode experiencePoints = playerData.CreateElement("ExperiencePoints");
+
+            experiencePoints.AppendChild(playerData.CreateTextNode(this.ExperiencePoints.ToString()));
+            stats.AppendChild(experiencePoints);
+            XmlNode currentLocation = playerData.CreateElement("CurrentLocation");
+
+            currentLocation.AppendChild(playerData.CreateTextNode(this.CurrentLocation.ToString()));
+            stats.AppendChild(currentLocation);
+        }   // end ToXmlString()
     }
 }
