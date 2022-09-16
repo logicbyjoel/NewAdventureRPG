@@ -217,6 +217,35 @@ namespace Engine
 
             currentLocation.AppendChild(playerData.CreateTextNode(this.CurrentLocation.ToString()));
             stats.AppendChild(currentLocation);
+
+            // Create the "InventoryITems" child node to hold each InventoryIteem node
+            XmlNode inventoryItems = playerData.CreateElement("InventoryItems");
+
+            // create the "InventoryItem" node for each item in the player's invneotory
+            foreach (InventoryItem ii in this.Inventory)
+            {
+                // wrong approach
+                //XmlNode item = playerData.CreateElement("item" +ii.index +" ");
+
+                XmlNode inventoryItem = playerData.CreateElement("InventoryItem");
+                XmlAttribute idAttribute = playerData.CreateAttribute("ID");
+                idAttribute.Value = ii.Details.ID.ToString();
+                inventoryItem.Attributes.Append(idAttribute);
+                XmlAttribute quantityAttribute = playerData.CreateAttribute("Quantity");
+                quantityAttribute.Value = ii.Quantity.ToString();
+                inventoryItem.Attributes.Append(quantityAttribute);
+                inventoryItems.AppendChild(inventoryItem);
+            }
+
+            // ccreate the "Player Quests" child node to hold each PlayerQuest node
+            XmlNode playerQuests = playerData.CreateElement("PlayerQuests");
+
+            // create the "PlayerQuest" node for each quest the player has acquired
+            foreach(PlayerQuest pq in Quests)
+            {
+
+            }
+
         }   // end ToXmlString()
     }
 }
