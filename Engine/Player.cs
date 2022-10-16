@@ -239,13 +239,21 @@ namespace Engine
 
             // ccreate the "Player Quests" child node to hold each PlayerQuest node
             XmlNode playerQuests = playerData.CreateElement("PlayerQuests");
+            player.AppendChild(playerQuests);
 
             // create the "PlayerQuest" node for each quest the player has acquired
             foreach(PlayerQuest pq in Quests)
             {
-
+                XmlNode playerQuest = playerData.CreateElement("PlayerQuest");
+                XmlAttribute idAttribute = playerData.CreateAttribute("ID");
+                idAttribute.Value = pq.Details.ID.ToString();
+                playerQuest.Attributes.Append(idAttribute);
+                XmlAttribute isCompletedAttribute = playerData.CreateAttribute("IsCompleted");
+                isCompletedAttribute.Value = pq.IsCompleted.ToString();
+                playerQuest.Attributes.Append(isCompletedAttribute);
+                playerQuests.AppendChild(playerQuest);
             }
-
+            return playerData.InnerXml; // the XML document, as a string, so we can save the data to disk
         }   // end ToXmlString()
     }
 }
