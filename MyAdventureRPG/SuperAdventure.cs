@@ -538,5 +538,10 @@ namespace MyAdventureRPG
             lblExperience.Text = _player.ExperiencePoints.ToString();
             lblLevel.Text = _player.Level.ToString();
         }   // end UpdatePlayerStats()
+
+        private void SuperAdventure_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

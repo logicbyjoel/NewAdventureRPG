@@ -32,7 +32,10 @@ namespace Engine
         public List<PlayerQuest> Quests { get; set; }
 
         // add param constructor and reference base class props
-        public Player(int currentHitPoints, int maximumHitPoints, int gold, int experiencePoints) : base(currentHitPoints, maximumHitPoints)
+        // convert Player constructor from public to private after addition of XML for storing player's data
+        // this means that the constructor can only be called by anothyer function inside this Player class. 
+        // NOTE: this is not absolutely necessary, but we are going to use other two methods to create a Player object, we made the constructor private
+        private Player(int currentHitPoints, int maximumHitPoints, int gold, int experiencePoints) : base(currentHitPoints, maximumHitPoints)
         {
             Gold = gold;
             ExperiencePoints = experiencePoints;
@@ -41,6 +44,58 @@ namespace Engine
 
             Inventory = new List<InventoryItem>();
             Quests = new List<PlayerQuest>();
+        }
+
+        // After addition of XML for storing player's data, we will create a default player object in case player's data cannot be retrieved
+        public static Player CreateDefaultPlayer()
+        {
+            Player player = new Player(10, 10, 20, 0);
+            player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_RUSTY_SWORD), 1));
+            player.CurrentLocation = World.LocationByID(World.LOCATION_ID_HOME);
+            return player;
+        }   // end CreateDefaultPlayer()
+
+        public static Player CreatePlayerFromXmlString(string xmlPlayerData)
+        {
+            try
+            {
+                XmlDocument playerData = new XmlDocument();
+                playerData.LoadXml(xmlPlayerData);
+                int currentHitPoints = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/CurrentHitPoints").InnerText);
+                int maximumHitPoints = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/MaximumHitPoints").InnerText);
+                int gold = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/Gold").InnerText);
+                int experiencePoints = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/ExperiencePoints").InnerText);
+
+                Player player = new Player(currentHitPoints, maximumHitPoints, gold, experiencePoints);
+                int currentLocationID = Convert.ToInt32(playerData.SelectSingleNode("/Player/Stats/CurrentLocation").InnerText);
+                player.CurrentLocation = World.LocationByID(currentLocationID);
+
+                foreach(XmlNode node in playerData.SelectNodes("/Player/InventoryItems/InventoryItem"))
+                {
+                    int id = Convert.ToInt32(node.Attributes["ID"].Value);
+                    int quantity = Convert.ToInt32(node.Attributes["Quantity"].Value);
+
+                    for(int i = 0; i < quantity; i++)
+                    {
+                        player.AddItemToInventory(World.ItemByID(i));
+                    }
+                }
+
+                foreach(XmlNode node in playerData.SelectNodes("/Player/PlayerQuests/PlayerQuest"))
+                {
+                    int id = Convert.ToInt32(node.Attributes["ID"].Value);
+                    bool isCompleted = Convert.ToBoolean(node.Attributes["IsCompleted"].Value);
+                    PlayerQuest playerQuest = new PlayerQuest(World.QuestByID(id));
+                    playerQuest.IsCompleted = isCompleted;
+                    player.Quests.Add(playerQuest);
+                }
+                return player;
+            }
+            catch
+            {
+                // if there is an error with the XML data, return a default player object
+                return Player.CreateDefaultPlayer();
+            }
         }
 
         // start refactoring code from SuperAdventure.cs > MyAdventureRPG SuperAdventure > MoveTo()
