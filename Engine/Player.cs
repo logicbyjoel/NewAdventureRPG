@@ -31,15 +31,23 @@ namespace Engine
         public List<InventoryItem> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
 
-        // add param constructor and reference base class props
-        // convert Player constructor from public to private after addition of XML for storing player's data
-        // this means that the constructor can only be called by anothyer function inside this Player class. 
-        // NOTE: this is not absolutely necessary, but we are going to use other two methods to create a Player object, we made the constructor private
+
+        /// <summary>
+        /// add param constructor and reference base class props
+        /// convert Player constructor from public to private after addition of XML for storing player's data
+        /// this means that the constructor can only be called by anothyer function inside this Player class. 
+        ///NOTE: this is not absolutely necessary, but we are going to use other two methods to create a Player object, we made the constructor private meaning..
+        /// it can only be called by another function inside this Player class. 
+        /// </summary>
+        /// <param name="currentHitPoints"></param>
+        /// <param name="maximumHitPoints"></param>
+        /// <param name="gold"></param>
+        /// <param name="experiencePoints"></param>
         private Player(int currentHitPoints, int maximumHitPoints, int gold, int experiencePoints) : base(currentHitPoints, maximumHitPoints)
         {
             Gold = gold;
             ExperiencePoints = experiencePoints;
-            // remove Level, because we removed the 'set' from this property
+            // remove Level, because we removed the 'setter' from this property
             // Level = level;
 
             Inventory = new List<InventoryItem>();
@@ -310,5 +318,7 @@ namespace Engine
             }
             return playerData.InnerXml; // the XML document, as a string, so we can save the data to disk
         }   // end ToXmlString()
+
+
     }
 }

@@ -68,7 +68,7 @@ namespace MyAdventureRPG
 
             // declare Player object, store in class-level variable
             // UPDATE: this instantiation now must meet parameterized construcotr of Player class
-            _player = new Player(10, 10, 20, 0); // keep?
+            //_player = new Player(10, 10, 20, 0); // keep?
             // move to home
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
             _player.Inventory.Add(new InventoryItem(World.ItemByID(World.ITEM_ID_RUSTY_SWORD), 1));
