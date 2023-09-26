@@ -121,6 +121,7 @@ namespace Engine
             // NOTE: this is a lambda expression being used
             return Inventory.Exists(ii => ii.Details.ID == destination.ItemRequiredToEnter.ID);
 
+
         }   // end HasRequiredItemToEnterThisLocation()
 
         public bool HasThisQuest(Quest quest)
@@ -187,13 +188,7 @@ namespace Engine
             // find all quest completion items to remove from inventory
             foreach (QuestCompletionItem qci in quest.QuestCompletionItems)
             {
-                InventoryItem item = Inventory.SingleOrDefault(ii => ii.Details.ID == qci.Details.ID);
-                if(item != null)
-                {
-                    // subtract the qty from the player's inventory that was needed to complete this queset
-                    item.Quantity -= qci.Quantity;
-                }
-/*                foreach (InventoryItem ii in Inventory)
+                foreach (InventoryItem ii in Inventory)
                 {
                     if(ii.Details.ID == qci.Details.ID)
                     {
@@ -201,23 +196,13 @@ namespace Engine
                         ii.Quantity -= qci.Quantity;
                         break;
                     }
-                }*/
+                }
             }
         }   // end RemoveQuestCompletionItems()
 
         public void AddItemToInventory(Item itemToAdd)
         {
-            InventoryItem item = Inventory.FirstOrDefault(ii => ii.Details.ID == itemToAdd.ID);
-            if(item == null)
-            {
-                Inventory.Add(new InventoryItem(itemToAdd, 1));
-            }
-            else
-            {
-                // player has this item in their inventory, increase qty
-                item.Quantity++;
-            }
-/*            foreach (InventoryItem ii in Inventory)
+            foreach (InventoryItem ii in Inventory)
             {
                 // check for a matching item in inventory to add to its quantity
                 if(ii.Details.ID == itemToAdd.ID)
@@ -229,17 +214,12 @@ namespace Engine
                 }
             }
             // item was not found, add this item to their inventory as a new item, with quantity of 1
-            Inventory.Add(new InventoryItem(itemToAdd, 1));*/
+            Inventory.Add(new InventoryItem(itemToAdd, 1));
         }   // end AddItemToInventory()
 
         public void MarkQuestCompleted(Quest quest)
         {
-            PlayerQuest playerQuest = Quests.SingleOrDefault(pq => pq.Details.ID == quest.ID);
-            if(playerQuest != null)
-            {
-                playerQuest.IsCompleted = true;
-            }
-/*            // check player's quest to locate the quest in question
+            // check player's quest to locate the quest in question
             foreach (PlayerQuest playerQuest in Quests)
             {
                 if(playerQuest.Details.ID == quest.ID)
@@ -247,7 +227,7 @@ namespace Engine
                     playerQuest.IsCompleted = true;
                     return; // we found teh quest, and marked it as complet. exit the function
                 }
-            }*/
+            }
         }   // end MarkQuestCompleted()
 
         public string ToXmlString()
